@@ -12,6 +12,12 @@ public class User {
     /** Unique identifier of the user. */
     private int id;
 
+    /** Login of the user. */
+    private String login;
+
+    /** Password of the user. */
+    private String password;
+
     /** First name of the user. */
     private final String name;
 
@@ -31,8 +37,10 @@ public class User {
     private final String contactValue;
 
     /** Constructor including ID. */
-    public User(int id, String name, String lastName, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue) {
+    public User(int id, String login, String password, String name, String lastName, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue) {
         this.id = id;
+        this.login = login;
+        this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.nickname = nickname;
@@ -42,7 +50,9 @@ public class User {
     }
 
     /** Constructor without ID for creating new users before saving to DB. */
-    public User(String name, String lastName, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue) {
+    public User(String name, String login, String password, String lastName, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue) {
+        this.login = login;
+        this.password = password;
         this.name = name;
         this.lastName = lastName;
         this.nickname = nickname;
@@ -53,6 +63,14 @@ public class User {
 
     public int getId() {
         return id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {
