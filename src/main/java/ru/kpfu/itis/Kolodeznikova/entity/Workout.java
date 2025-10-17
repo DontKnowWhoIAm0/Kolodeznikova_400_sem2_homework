@@ -18,10 +18,10 @@ public class Workout {
     private int creatorId;
 
     /** List of IDs of users who participated in the workout. */
-    private List<Integer> participantsId;
+    private int participantId;
 
     /** The sport chosen for this workout. */
-    private Sports sports;
+    private Sports sport;
 
     /** The city where the workout took place. */
     private String city;
@@ -33,21 +33,21 @@ public class Workout {
     private LocalDate completedDate;
 
     /** Constructor including ID. */
-    public Workout(int id, int creatorId, List<Integer> participantsId, Sports sports, String city, WorkoutStatus status, LocalDate completedDate) {
+    public Workout(int id, int creatorId, int participantId, Sports sport, String city, WorkoutStatus status, LocalDate completedDate) {
         this.id = id;
         this.creatorId = creatorId;
-        this.participantsId = participantsId;
-        this.sports = sports;
+        this.participantId = participantId;
+        this.sport = sport;
         this.city = city;
         this.status = status;
         this.completedDate = completedDate;
     }
 
     /** Constructor without ID for creating new workouts before saving to DB. */
-    public Workout(int creatorId, List<Integer> participantsId, Sports sports, String city, WorkoutStatus status, LocalDate completedDate) {
+    public Workout(int creatorId, int participantId, Sports sport, String city, WorkoutStatus status, LocalDate completedDate) {
         this.creatorId = creatorId;
-        this.participantsId = participantsId;
-        this.sports = sports;
+        this.participantId = participantId;
+        this.sport = sport;
         this.city = city;
         this.status = status;
         this.completedDate = completedDate;
@@ -61,12 +61,12 @@ public class Workout {
         return creatorId;
     }
 
-    public List<Integer> getParticipantsId() {
-        return participantsId;
+    public int getParticipantId() {
+        return participantId;
     }
 
-    public Sports getSports() {
-        return sports;
+    public Sports getSport() {
+        return sport;
     }
 
     public String getCity() {

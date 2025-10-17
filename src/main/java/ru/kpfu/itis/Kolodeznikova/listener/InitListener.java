@@ -1,5 +1,7 @@
 package ru.kpfu.itis.Kolodeznikova.listener;
 
+import ru.kpfu.itis.Kolodeznikova.dao.*;
+import ru.kpfu.itis.Kolodeznikova.dao.impl.UserDaoImpl;
 import ru.kpfu.itis.Kolodeznikova.util.ConnectionPool;
 
 import javax.servlet.ServletContextEvent;
@@ -26,7 +28,9 @@ public class InitListener implements ServletContextListener {
                     properties.getProperty("username"),
                     properties.getProperty("password")
             );
-            sce.getServletContext().setAttribute("connectionPool", pool);
+
+            UserDao userDao = new UserDaoImpl(pool);
+            sce.getServletContext().setAttribute("userDao", userDao);
 
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
