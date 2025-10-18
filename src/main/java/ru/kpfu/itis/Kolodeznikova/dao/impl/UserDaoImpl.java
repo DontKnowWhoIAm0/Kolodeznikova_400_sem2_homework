@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
             CREATE TABLE IF NOT EXISTS users (
                 id BIGSERIAL PRIMARY KEY,
                 login varchar(100) UNIQUE NOT NULL ,
-                password varchar(512) NOT NULL,
+                passwordHash varchar(512) NOT NULL,
                 name varchar(50) NOT NULL,
                 lastname varchar(50) NOT NULL,
                 nickname varchar(50) UNIQUE NOT NULL,
@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
 
     /** SQL query to add a new user. */
     private static final String ADD_USER_QUERY = """
-            INSERT INTO users (login, password, name, lastname, nickname, gender, wayOfCommunication, contactValue, profileImage)
+            INSERT INTO users (login, passwordHash, name, lastname, nickname, gender, wayOfCommunication, contactValue, profileImage)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
@@ -87,7 +87,7 @@ public class UserDaoImpl implements UserDao {
         Connection connection = connectionPool.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(ADD_USER_QUERY)) {
             statement.setString(1, user.getLogin());
-            statement.setString(2, user.getPassword());
+            statement.setString(2, user.getPasswordHash());
             statement.setString(3, user.getName());
             statement.setString(4, user.getLastname());
             statement.setString(5, user.getNickname());
@@ -198,7 +198,7 @@ public class UserDaoImpl implements UserDao {
         return new User(
                 resultSet.getInt("id"),
                 resultSet.getString("login"),
-                resultSet.getString("password"),
+                resultSet.getString("passwordHash"),
                 resultSet.getString("name"),
                 resultSet.getString("lastname"),
                 resultSet.getString("nickname"),

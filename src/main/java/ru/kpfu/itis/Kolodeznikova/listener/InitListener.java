@@ -2,6 +2,8 @@ package ru.kpfu.itis.Kolodeznikova.listener;
 
 import ru.kpfu.itis.Kolodeznikova.dao.*;
 import ru.kpfu.itis.Kolodeznikova.dao.impl.UserDaoImpl;
+import ru.kpfu.itis.Kolodeznikova.service.UserService;
+import ru.kpfu.itis.Kolodeznikova.service.impl.UserServiceImpl;
 import ru.kpfu.itis.Kolodeznikova.util.ConnectionPool;
 
 import javax.servlet.ServletContextEvent;
@@ -30,7 +32,10 @@ public class InitListener implements ServletContextListener {
             );
 
             UserDao userDao = new UserDaoImpl(pool);
+            UserService userService = new UserServiceImpl(userDao);
+
             sce.getServletContext().setAttribute("userDao", userDao);
+            sce.getServletContext().setAttribute("userService", userService);
 
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);

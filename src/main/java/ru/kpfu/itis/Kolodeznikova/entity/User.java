@@ -15,8 +15,8 @@ public class User {
     /** Login of the user. */
     private String login;
 
-    /** Password of the user. */
-    private String password;
+    /** Password hash of the user. */
+    private String passwordHash;
 
     /** First name of the user. */
     private final String name;
@@ -40,10 +40,10 @@ public class User {
     private final String profileImage;
 
     /** Constructor including ID. */
-    public User(int id, String login, String password, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
+    public User(int id, String login, String passwordHash, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
         this.id = id;
         this.login = login;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.name = name;
         this.lastname = lastname;
         this.nickname = nickname;
@@ -54,9 +54,9 @@ public class User {
     }
 
     /** Constructor without ID for creating new users before saving to DB. */
-    public User(String name, String login, String password, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
+    public User(String name, String login, String passwordHash, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
         this.login = login;
-        this.password = password;
+        this.passwordHash = passwordHash;
         this.name = name;
         this.lastname = lastname;
         this.nickname = nickname;
@@ -74,8 +74,8 @@ public class User {
         return login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public String getName() {
