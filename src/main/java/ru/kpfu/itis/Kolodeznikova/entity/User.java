@@ -36,8 +36,11 @@ public class User {
     /** Contact information corresponding to the selected way of communication. */
     private final String contactValue;
 
+    /** File path to the user's profile image. */
+    private final String profileImage;
+
     /** Constructor including ID. */
-    public User(int id, String login, String password, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue) {
+    public User(int id, String login, String password, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -47,10 +50,11 @@ public class User {
         this.gender = gender;
         this.wayOfCommunication = wayOfCommunication;
         this.contactValue = contactValue;
+        this.profileImage = profileImage;
     }
 
     /** Constructor without ID for creating new users before saving to DB. */
-    public User(String name, String login, String password, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue) {
+    public User(String name, String login, String password, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
         this.login = login;
         this.password = password;
         this.name = name;
@@ -59,6 +63,7 @@ public class User {
         this.gender = gender;
         this.wayOfCommunication = wayOfCommunication;
         this.contactValue = contactValue;
+        this.profileImage = profileImage;
     }
 
     public int getId() {
@@ -95,6 +100,10 @@ public class User {
 
     public String getContactValue() {
         return contactValue;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
     }
 }
 

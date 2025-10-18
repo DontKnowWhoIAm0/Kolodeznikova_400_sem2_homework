@@ -25,14 +25,15 @@ public class UserDaoImpl implements UserDao {
                 nickname varchar(50) UNIQUE NOT NULL,
                 gender varchar(10) NOT NULL,
                 wayOfCommunication varchar(20) NOT NULL,
-                contactValue varchar(100) NOT NULL
+                contactValue varchar(100) NOT NULL,
+                profileImage varchar(100)
             );
             """;
 
     /** SQL query to add a new user. */
     private static final String ADD_USER_QUERY = """
-            INSERT INTO users (login, password, name, lastname, nickname, gender, wayOfCommunication, contactValue)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+            INSERT INTO users (login, password, name, lastname, nickname, gender, wayOfCommunication, contactValue, profileImage)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
     /** SQL query to get a user by login. */
@@ -40,7 +41,7 @@ public class UserDaoImpl implements UserDao {
             SELECT * FROM users WHERE login = ?;
             """;
 
-    /** SQL query to get a user by id. */
+    /** SQL query to get a user by ID. */
     private static final String GET_USER_BY_ID_QUERY = """
             SELECT * FROM users WHERE id = ?;
             """;
@@ -48,7 +49,7 @@ public class UserDaoImpl implements UserDao {
     /** SQL query to update a user's information. */
     private static final String UPDATE_USER_INFORMATION_QUERY = """
             UPDATE users
-            SET name = ?, lastname = ?, nickname = ?, wayOfCommunication = ?, contactValue = ?
+            SET name = ?, lastname = ?, nickname = ?, wayOfCommunication = ?, contactValue = ?, profileImage = ?
             WHERE id = ?;
             """;
 
@@ -93,6 +94,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(6, user.getGender().toString());
             statement.setString(7, user.getWayOfCommunication().toString());
             statement.setString(8, user.getContactValue());
+            statement.setString(9, user.getProfileImage());
             statement.executeUpdate();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -149,7 +151,8 @@ public class UserDaoImpl implements UserDao {
             statement.setString(3, user.getNickname());
             statement.setString(4, user.getWayOfCommunication().toString());
             statement.setString(5, user.getContactValue());
-            statement.setInt(6, user.getId());
+            statement.setString(6, user.getProfileImage());
+            statement.setInt(7, user.getId());
             statement.executeUpdate();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -179,8 +182,6 @@ public class UserDaoImpl implements UserDao {
         List<User> users = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USERS_QUERY)) {
             ResultSet resultSet = statement.executeQuery();
-
-
             while (resultSet.next()) {
                 users.add(makeUser(resultSet));
             }
@@ -203,7 +204,8 @@ public class UserDaoImpl implements UserDao {
                 resultSet.getString("nickname"),
                 Gender.valueOf(resultSet.getString("gender")),
                 WayOfCommunication.valueOf(resultSet.getString("wayOfCommunication")),
-                resultSet.getString("contactValue")
+                resultSet.getString("contactValue"),
+                resultSet.getString("profileImage")
         );
     }
 }

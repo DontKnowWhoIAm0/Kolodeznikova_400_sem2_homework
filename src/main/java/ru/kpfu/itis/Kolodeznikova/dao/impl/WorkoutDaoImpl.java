@@ -10,8 +10,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DAO class that provides CRUD operations for Workout entities.
+ */
 public class WorkoutDaoImpl implements WorkoutDao {
 
+    /** SQL query to create the "workouts" table if it does not exist. */
     private static final String WORKOUT_TABLE_CREATE_QUERY = """
             CREATE TABLE IF NOT EXISTS workouts (
                 id BIGSERIAL PRIMARY KEY,
@@ -24,42 +28,52 @@ public class WorkoutDaoImpl implements WorkoutDao {
             );
             """;
 
+    /** SQL query to add a new workout. */
     private static final String ADD_WORKOUT_QUERY = """
             INSERT INTO workouts (creatorId, participantId, sport, city, status)
             VALUES (?, ?, ?, ?, ?);
             """;
 
+    /** SQL query to get a workout by ID. */
     private static final String GET_WORKOUT_BY_ID_QUERY = """
             SELECT * FROM workouts WHERE id = ?;
             """;
 
+    /** SQL query to update a workout's status and date of complete. */
     private static final String UPDATE_WORKOUT_INFORMATION_QUERY = """
             UPDATE workouts
             SET status = ?, completedDate = ?
             WHERE id = ?;
             """;
 
+    /** SQL query to get all workouts related to a user (as creator or participant). */
     private static final String GET_ALL_USER_WORKOUTS_QUERY = """
             SELECT * FROM workouts
             WHERE creatorId = ? OR participantId = ?;
             """;
 
+    /** SQL query to get all pending workouts where the user is the creator. */
     private static final String GET_ALL_USER_AS_CREATOR_PENDING_WORKOUTS_QUERY = """
             SELECT * FROM workouts
             WHERE creatorId = ? AND status = 'pending';
             """;
 
+    /** SQL query to get all pending workouts where the user is the participant. */
     private static final String GET_ALL_USER_AS_PARTICIPANT_PENDING_WORKOUTS_QUERY = """
             SELECT * FROM workouts
             WHERE participantId = ? AND status = 'pending';
             """;
 
+    /** SQL query to delete a workout by ID. */
     private static final String DELETE_WORKOUT_QUERY = """
             DELETE FROM workouts WHERE id = ?;
             """;
 
     private final ConnectionPool connectionPool;
 
+    /**
+     * Constructor initializes the DAO and ensures that the workouts table exists.
+     */
     public WorkoutDaoImpl(ConnectionPool connectionPool) throws SQLException {
         this.connectionPool = connectionPool;
         Connection connection = connectionPool.getConnection();
@@ -70,6 +84,9 @@ public class WorkoutDaoImpl implements WorkoutDao {
         }
     }
 
+    /**
+     * Adds a new workout into the database.
+     */
     @Override
     public void create(Workout workout) throws SQLException {
         Connection connection = connectionPool.getConnection();
@@ -85,6 +102,9 @@ public class WorkoutDaoImpl implements WorkoutDao {
         }
     }
 
+    /**
+     * Finds a workout by its ID.
+     */
     @Override
     public Workout findById(int id) throws SQLException {
         Connection connection = connectionPool.getConnection();
@@ -101,6 +121,9 @@ public class WorkoutDaoImpl implements WorkoutDao {
         return workout;
     }
 
+    /**
+     * Updates a workout's status and sets the completed date if the workout is completed.
+     */
     @Override
     public void update(Workout workout) throws SQLException {
         Connection connection = connectionPool.getConnection();
@@ -118,6 +141,9 @@ public class WorkoutDaoImpl implements WorkoutDao {
         }
     }
 
+    /**
+     * Deletes a workout from the database by ID.
+     */
     @Override
     public void delete(int id) throws SQLException {
         Connection connection = connectionPool.getConnection();
@@ -129,6 +155,9 @@ public class WorkoutDaoImpl implements WorkoutDao {
         }
     }
 
+    /**
+     * Returns all workouts where the user is either the creator or participant.
+     */
     @Override
     public List<Workout> getAllUserWorkouts(int id) throws SQLException {
         Connection connection = connectionPool.getConnection();
@@ -147,6 +176,9 @@ public class WorkoutDaoImpl implements WorkoutDao {
         return workouts;
     }
 
+    /**
+     * Returns all pending workouts where the user is the creator.
+     */
     @Override
     public List<Workout> getAllUserAsCreatorPendingWorkouts(int id) throws SQLException {
         Connection connection = connectionPool.getConnection();
@@ -165,6 +197,9 @@ public class WorkoutDaoImpl implements WorkoutDao {
         return workouts;
     }
 
+    /**
+     * Returns all pending workouts where the user is the participant.
+     */
     @Override
     public List<Workout> getAllUserAsParticipantPendingWorkouts(int id) throws SQLException {
         Connection connection = connectionPool.getConnection();
@@ -182,6 +217,9 @@ public class WorkoutDaoImpl implements WorkoutDao {
         return workouts;
     }
 
+    /**
+     * Additional method to make a Workout object from ResultSet.
+     */
     private Workout makeWorkout(ResultSet resultSet) throws SQLException {
         return new Workout(
                 resultSet.getInt("id"),
