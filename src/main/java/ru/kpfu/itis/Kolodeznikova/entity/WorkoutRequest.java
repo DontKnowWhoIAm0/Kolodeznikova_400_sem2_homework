@@ -23,7 +23,7 @@ public class WorkoutRequest {
     private List<Integer> respondentsId;
 
     /** The sport chosen for the workout request. */
-    private Sports sports;
+    private Sports sport;
 
     /** The city where the workout is planned. */
     private String city;
@@ -45,11 +45,11 @@ public class WorkoutRequest {
     private LocalTime endTime;
 
     /** Constructor including ID. */
-    public WorkoutRequest(int id, int creatorId, List<Integer> respondentsId, Sports sports, String city, LocalDate startDate, LocalDate endDate, boolean isTimeRelevant, LocalTime startTime, LocalTime endTime) {
+    public WorkoutRequest(int id, int creatorId, List<Integer> respondentsId, Sports sport, String city, LocalDate startDate, LocalDate endDate, boolean isTimeRelevant, LocalTime startTime, LocalTime endTime) {
         this.id = id;
         this.creatorId = creatorId;
         this.respondentsId = respondentsId;
-        this.sports = sports;
+        this.sport = sport;
         this.city = city;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -59,10 +59,10 @@ public class WorkoutRequest {
     }
 
     /** Constructor without ID for creating new requests before saving to DB. */
-    public WorkoutRequest(int creatorId, List<Integer> respondentsId, Sports sports, String city, LocalDate startDate, LocalDate endDate, boolean isTimeRelevant, LocalTime startTime, LocalTime endTime) {
+    public WorkoutRequest(int creatorId, List<Integer> respondentsId, Sports sport, String city, LocalDate startDate, LocalDate endDate, boolean isTimeRelevant, LocalTime startTime, LocalTime endTime) {
         this.creatorId = creatorId;
         this.respondentsId = respondentsId;
-        this.sports = sports;
+        this.sport = sport;
         this.city = city;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -83,8 +83,8 @@ public class WorkoutRequest {
         return respondentsId;
     }
 
-    public Sports getSports() {
-        return sports;
+    public Sports getSport() {
+        return sport;
     }
 
     public String getCity() {

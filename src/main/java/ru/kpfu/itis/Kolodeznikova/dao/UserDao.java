@@ -10,5 +10,6 @@ import java.util.List;
  */
 public interface UserDao extends Dao<User> {
     User findByLogin(String login) throws SQLException;
+    void update(User user) throws SQLException;
     List<User> getAllUsers() throws SQLException;
 }
