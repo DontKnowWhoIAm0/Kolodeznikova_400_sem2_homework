@@ -6,8 +6,6 @@
 <#macro content>
 
     <div class="auth-container">
-
-
         <#if title == "Регистрация">
             <@signupForm />
         <#else>
@@ -20,4 +18,10 @@
 
 <#include "/WEB-INF/templates/base.ftl">
 
-
+<#if title == "Регистрация">
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        window.contextPath = "${contextPath}";
+    </script>
+    <script src="${contextPath}/js/checkUniqueness.js"></script>
+</#if>

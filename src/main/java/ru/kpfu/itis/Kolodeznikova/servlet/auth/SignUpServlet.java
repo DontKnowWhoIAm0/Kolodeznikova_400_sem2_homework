@@ -47,6 +47,7 @@ public class SignUpServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("contextPath", req.getContextPath());
         req.setAttribute("title", "Регистрация");
         req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);
     }
@@ -79,6 +80,7 @@ public class SignUpServlet extends HttpServlet {
                 wayOfCommunicationStr == null || wayOfCommunicationStr.isBlank() ||
                 contactValue == null || contactValue.isBlank()) {
             req.setAttribute("error", "Все обязательные поля должны быть заполнены");
+            req.setAttribute("contextPath", req.getContextPath());
             req.setAttribute("title", "Регистрация");
             req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);
             return;
@@ -88,11 +90,13 @@ public class SignUpServlet extends HttpServlet {
         try {
             if (userService.loginExists(login)) {
                 req.setAttribute("error", "Пользователь с таким логином уже существует");
+                req.setAttribute("contextPath", req.getContextPath());
                 req.setAttribute("title", "Регистрация");
                 req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);
                 return;
             } else if (userService.nicknameExists(nickname)) {
                 req.setAttribute("error", "Пользователь с таким никнеймом уже существует");
+                req.setAttribute("contextPath", req.getContextPath());
                 req.setAttribute("title", "Регистрация");
                 req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);
                 return;

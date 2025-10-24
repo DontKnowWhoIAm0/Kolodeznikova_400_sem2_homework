@@ -6,11 +6,16 @@
     </#if>
 
     <form method="post" action="signup" enctype="multipart/form-data">
-        <input type="text" name="login" placeholder="Логин" required>
+
+        <input type="text" id="login" name="login" placeholder="Логин" required>
+        <div id="login-error" class="error"></div>
+
         <input type="password" name="password" placeholder="Пароль" required>
         <input type="text" name="name" placeholder="Имя" required>
         <input type="text" name="lastname" placeholder="Фамилия" required>
-        <input type="text" name="nickname" placeholder="Никнейм" required>
+
+        <input type="text" id="nickname" name="nickname" placeholder="Никнейм" required>
+        <div id="nickname-error" class="error"></div>
 
         <select name="gender" required>
             <option value="" disabled selected>Пол</option>
@@ -32,7 +37,7 @@
         <label>Фото профиля:</label>
         <input type="file" name="profile_image" accept="image/*">
 
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit" id="signup-button">Зарегистрироваться</button>
     </form>
 
     <div class="login-link">

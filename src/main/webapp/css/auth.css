@@ -36,8 +36,25 @@ button {
     font-size: 16px;
 }
 
-button:hover {
+button:hover:enabled {
     background-color: #00a86b;
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+#signup-button:disabled {
+    background-color: #ccc; /* серая */
+    color: #666;           /* серый текст */
+    cursor: not-allowed;   /* курсор "запрещено" */
+}
+
+/* hover не срабатывает на disabled, но можно явно */
+#signup-button:disabled:hover {
+    background-color: #ccc;
 }
 
 .auth-container .login-link {

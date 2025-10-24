@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Servlet that handles user login functionality.
+ * Supports checking the correctness of the login and password pair.
+ */
 @WebServlet(name="Log In", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
@@ -43,9 +47,7 @@ public class LoginServlet extends HttpServlet {
 
         // Retrieve user input from the login form
         String login = req.getParameter("login");
-        System.out.println("A");
         String password = req.getParameter("password");
-        System.out.println(password);
 
         // Validate fields
         if (login == null || login.isBlank() || password == null || password.isBlank()) {
