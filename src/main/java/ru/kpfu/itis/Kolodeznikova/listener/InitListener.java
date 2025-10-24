@@ -24,10 +24,11 @@ public class InitListener implements ServletContextListener {
         try {
             Properties properties = new Properties();
             InputStream inputStream = getClass().getResourceAsStream("/db.properties");
+
             properties.load(inputStream);
             pool = new ConnectionPool(
                     properties.getProperty("url"),
-                    properties.getProperty("username"),
+                    properties.getProperty("user"),
                     properties.getProperty("password")
             );
 

@@ -16,9 +16,9 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
 
     /** SQL query to create the "workout_requests" table if it does not exist. */
     private static final String CREATE_REQUESTS_TABLE_QUERY = """
-            CREATE TABLE IF NOT EXISTS workout_requests (
+            CREATE TABLE IF NOT EXISTS sb_db.workout_requests (
                 id BIGSERIAL PRIMARY KEY,
-                creatorId BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                creatorId BIGINT NOT NULL REFERENCES sb_db.users(id) ON DELETE CASCADE,
                 sport VARCHAR(50) NOT NULL,
                 city VARCHAR(100) NOT NULL,
                 startDate DATE NOT NULL,
@@ -31,45 +31,45 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
 
     /** SQL query to create the "workout_request_respondents" table to link requests and respondents. */
     private static final String CREATE_RESPONDENTS_TABLE_QUERY = """
-            CREATE TABLE IF NOT EXISTS workout_request_respondents (
-                request_id BIGINT REFERENCES workout_requests(id) ON DELETE CASCADE,
-                respondent_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+            CREATE TABLE IF NOT EXISTS sb_db.workout_request_respondents (
+                request_id BIGINT REFERENCES sb_db.workout_requests(id) ON DELETE CASCADE,
+                respondent_id BIGINT REFERENCES sb_db.users(id) ON DELETE CASCADE,
                 PRIMARY KEY (request_id, respondent_id)
             );
             """;
 
     /** SQL query to add a new workout request and return its generated ID. */
     private static final String ADD_REQUEST_QUERY = """
-            INSERT INTO workout_requests (creatorId, sport, city, startDate, endDate, isTimeRelevant, startTime, endTime)
+            INSERT INTO sb_db.workout_requests (creatorId, sport, city, startDate, endDate, isTimeRelevant, startTime, endTime)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             RETURNING id;
             """;
 
     /** SQL query to add a respondent to a workout request. */
     private static final String ADD_RESPONDENT_QUERY = """
-            INSERT INTO workout_request_respondents (request_id, respondent_id) VALUES (?, ?);
+            INSERT INTO sb_db.workout_request_respondents (request_id, respondent_id) VALUES (?, ?);
             """;
 
     /** SQL query to get a workout request by ID. */
     private static final String GET_REQUEST_BY_ID_QUERY = """
-            SELECT * FROM workout_requests WHERE id = ?;
+            SELECT * FROM sb_db.workout_requests WHERE id = ?;
             """;
 
     /** SQL query to get all respondent IDs for a workout request by its ID. */
     private static final String GET_RESPONDENTS_BY_REQUEST_ID_QUERY = """
             SELECT respondent_id
-            FROM workout_request_respondents
+            FROM sb_db.workout_request_respondents
             WHERE request_id = ?;
             """;
 
     /** SQL query to delete a workout request by ID. */
     private static final String DELETE_REQUEST_QUERY = """
-            DELETE FROM workout_requests WHERE id = ?;
+            DELETE FROM sb_db.workout_requests WHERE id = ?;
             """;
 
     /** SQL query to delete a respondent from the workout request by their ID. */
     private static final String DELETE_RESPONDENT_BY_REQUEST_ID_QUERY = """
-            DELETE FROM workout_request_respondents WHERE request_id = ? AND respondent_id = ?;
+            DELETE FROM sb_db.workout_request_respondents WHERE request_id = ? AND respondent_id = ?;
             """;
 
     private final ConnectionPool connectionPool;

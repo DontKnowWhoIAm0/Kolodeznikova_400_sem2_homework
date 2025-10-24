@@ -10,4 +10,6 @@ import java.sql.SQLException;
 public interface UserService {
     void registerUser(User user) throws SQLException;
     boolean loginExists(String login) throws SQLException;
+    boolean nicknameExists(String nickname) throws SQLException;
+    boolean checkPasswordAndLogin(String login, String passwordHash) throws SQLException;
 }

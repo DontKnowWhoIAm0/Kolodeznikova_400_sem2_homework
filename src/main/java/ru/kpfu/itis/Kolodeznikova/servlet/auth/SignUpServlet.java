@@ -47,7 +47,8 @@ public class SignUpServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/templates/signup.ftl").forward(req, resp);
+        req.setAttribute("title", "Регистрация");
+        req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);
     }
 
     /**
@@ -59,7 +60,7 @@ public class SignUpServlet extends HttpServlet {
 
         // Retrieve user input from the signup form
         String login = req.getParameter("login");
-        String passwordHash = PasswordUtil.encrypt(req.getParameter("password"));
+        String password = req.getParameter("password");
         String name = req.getParameter("name");
         String lastname = req.getParameter("lastname");
         String nickname = req.getParameter("nickname");
@@ -70,7 +71,7 @@ public class SignUpServlet extends HttpServlet {
 
         // Validate required fields
         if (login == null || login.isBlank() ||
-                req.getParameter("password") == null || req.getParameter("password").isBlank() ||
+                password == null || password.isBlank() ||
                 name == null || name.isBlank() ||
                 lastname == null || lastname.isBlank() ||
                 nickname == null || nickname.isBlank() ||
@@ -78,7 +79,8 @@ public class SignUpServlet extends HttpServlet {
                 wayOfCommunicationStr == null || wayOfCommunicationStr.isBlank() ||
                 contactValue == null || contactValue.isBlank()) {
             req.setAttribute("error", "Все обязательные поля должны быть заполнены");
-            req.getRequestDispatcher("/WEB-INF/templates/signup.ftl").forward(req, resp);
+            req.setAttribute("title", "Регистрация");
+            req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);
             return;
         }
 
@@ -86,16 +88,23 @@ public class SignUpServlet extends HttpServlet {
         try {
             if (userService.loginExists(login)) {
                 req.setAttribute("error", "Пользователь с таким логином уже существует");
-                req.getRequestDispatcher("/WEB-INF/templates/signup.ftl").forward(req, resp);
+                req.setAttribute("title", "Регистрация");
+                req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);
+                return;
+            } else if (userService.nicknameExists(nickname)) {
+                req.setAttribute("error", "Пользователь с таким никнеймом уже существует");
+                req.setAttribute("title", "Регистрация");
+                req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);
                 return;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        // Convert string values to enums
+        // Convert string values to enums and hash the password
         Gender gender = Gender.valueOf(genderStr);
-        WayOfCommunication wayOfCommunication = WayOfCommunication.valueOf(wayOfCommunicationStr);
+        WayOfCommunication wayOfCommunication = WayOfCommunication.valueOf(wayOfCommunicationStr.toUpperCase());
+        String passwordHash = PasswordUtil.encrypt(password);
 
         // Create new User object and add into the database
         User user = new User(login, passwordHash, name, lastname, nickname, gender,

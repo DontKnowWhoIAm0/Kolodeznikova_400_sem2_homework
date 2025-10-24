@@ -27,7 +27,12 @@ public class ConnectionPool {
     }
 
     private Connection createConnection() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+        try {
+            Class.forName("org.postgresql.Driver");
+            return DriverManager.getConnection(url, user, password);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public synchronized Connection getConnection() throws SQLException {

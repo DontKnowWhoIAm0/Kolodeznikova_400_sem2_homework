@@ -16,7 +16,7 @@ public class UserDaoImpl implements UserDao {
 
     /** SQL query to create the "users" table if it does not exist. */
     private static final String USER_TABLE_CREATE_QUERY = """
-            CREATE TABLE IF NOT EXISTS users (
+            CREATE TABLE IF NOT EXISTS sb_db.users (
                 id BIGSERIAL PRIMARY KEY,
                 login varchar(100) UNIQUE NOT NULL ,
                 passwordHash varchar(512) NOT NULL,
@@ -32,37 +32,41 @@ public class UserDaoImpl implements UserDao {
 
     /** SQL query to add a new user. */
     private static final String ADD_USER_QUERY = """
-            INSERT INTO users (login, passwordHash, name, lastname, nickname, gender, wayOfCommunication, contactValue, profileImage)
+            INSERT INTO sb_db.users (login, passwordHash, name, lastname, nickname, gender, wayOfCommunication, contactValue, profileImage)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
     /** SQL query to get a user by login. */
     private static final String GET_USER_BY_LOGIN_QUERY = """
-            SELECT * FROM users WHERE login = ?;
+            SELECT * FROM sb_db.users WHERE login = ?;
             """;
 
     /** SQL query to get a user by ID. */
     private static final String GET_USER_BY_ID_QUERY = """
-            SELECT * FROM users WHERE id = ?;
+            SELECT * FROM sb_db.users WHERE id = ?;
+            """;
+
+    /** SQL query to get a user by nickname. */
+    private static final String GET_USER_BY_NICKNAME_QUERY = """
+            SELECT * FROM sb_db.users WHERE nickname = ?;
             """;
 
     /** SQL query to update a user's information. */
     private static final String UPDATE_USER_INFORMATION_QUERY = """
-            UPDATE users
+            UPDATE sb_db.users
             SET name = ?, lastname = ?, nickname = ?, wayOfCommunication = ?, contactValue = ?, profileImage = ?
             WHERE id = ?;
             """;
 
     /** SQL query to delete a user by ID. */
     private static final String DELETE_USER_QUERY = """
-            DELETE FROM users WHERE id = ?;
+            DELETE FROM sb_db.users WHERE id = ?;
             """;
 
     /** SQL query to get all users. */
     private static final String GET_ALL_USERS_QUERY = """
-            SELECT * FROM users;
+            SELECT * FROM sb_db.users;
             """;
-
 
     private final ConnectionPool connectionPool;
 
@@ -129,6 +133,25 @@ public class UserDaoImpl implements UserDao {
         User user = null;
         try (PreparedStatement statement = connection.prepareStatement(GET_USER_BY_LOGIN_QUERY)) {
             statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = makeUser(resultSet);
+            }
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return user;
+    }
+
+    /**
+     * Finds a user by their nickname.
+     */
+    @Override
+    public User findByNickname(String nickname) throws SQLException {
+        Connection connection = connectionPool.getConnection();
+        User user = null;
+        try (PreparedStatement statement = connection.prepareStatement(GET_USER_BY_NICKNAME_QUERY)) {
+            statement.setString(1, nickname);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user = makeUser(resultSet);

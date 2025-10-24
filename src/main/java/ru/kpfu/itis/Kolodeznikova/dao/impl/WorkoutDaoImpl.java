@@ -17,10 +17,10 @@ public class WorkoutDaoImpl implements WorkoutDao {
 
     /** SQL query to create the "workouts" table if it does not exist. */
     private static final String WORKOUT_TABLE_CREATE_QUERY = """
-            CREATE TABLE IF NOT EXISTS workouts (
+            CREATE TABLE IF NOT EXISTS sb_db.workouts (
                 id BIGSERIAL PRIMARY KEY,
-                creatorId BIGINT NOT NULL REFERENCES users(id),
-                participantId BIGINT NOT NULL REFERENCES users(id),
+                creatorId BIGINT NOT NULL REFERENCES sb_db.users(id),
+                participantId BIGINT NOT NULL REFERENCES sb_db.users(id),
                 sport VARCHAR(50) NOT NULL,
                 city VARCHAR(100) NOT NULL,
                 status VARCHAR(50) NOT NULL,
@@ -30,43 +30,43 @@ public class WorkoutDaoImpl implements WorkoutDao {
 
     /** SQL query to add a new workout. */
     private static final String ADD_WORKOUT_QUERY = """
-            INSERT INTO workouts (creatorId, participantId, sport, city, status)
+            INSERT INTO sb_db.workouts (creatorId, participantId, sport, city, status)
             VALUES (?, ?, ?, ?, ?);
             """;
 
     /** SQL query to get a workout by ID. */
     private static final String GET_WORKOUT_BY_ID_QUERY = """
-            SELECT * FROM workouts WHERE id = ?;
+            SELECT * FROM sb_db.workouts WHERE id = ?;
             """;
 
     /** SQL query to update a workout's status and date of complete. */
     private static final String UPDATE_WORKOUT_INFORMATION_QUERY = """
-            UPDATE workouts
+            UPDATE sb_db.workouts
             SET status = ?, completedDate = ?
             WHERE id = ?;
             """;
 
     /** SQL query to get all workouts related to a user (as creator or participant). */
     private static final String GET_ALL_USER_WORKOUTS_QUERY = """
-            SELECT * FROM workouts
+            SELECT * FROM sb_db.workouts
             WHERE creatorId = ? OR participantId = ?;
             """;
 
     /** SQL query to get all pending workouts where the user is the creator. */
     private static final String GET_ALL_USER_AS_CREATOR_PENDING_WORKOUTS_QUERY = """
-            SELECT * FROM workouts
+            SELECT * FROM sb_db.workouts
             WHERE creatorId = ? AND status = 'pending';
             """;
 
     /** SQL query to get all pending workouts where the user is the participant. */
     private static final String GET_ALL_USER_AS_PARTICIPANT_PENDING_WORKOUTS_QUERY = """
-            SELECT * FROM workouts
+            SELECT * FROM sb_db.workouts
             WHERE participantId = ? AND status = 'pending';
             """;
 
     /** SQL query to delete a workout by ID. */
     private static final String DELETE_WORKOUT_QUERY = """
-            DELETE FROM workouts WHERE id = ?;
+            DELETE FROM sb_db.workouts WHERE id = ?;
             """;
 
     private final ConnectionPool connectionPool;

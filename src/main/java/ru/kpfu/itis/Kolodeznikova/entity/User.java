@@ -54,7 +54,7 @@ public class User {
     }
 
     /** Constructor without ID for creating new users before saving to DB. */
-    public User(String name, String login, String passwordHash, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
+    public User(String login, String passwordHash, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
         this.login = login;
         this.passwordHash = passwordHash;
         this.name = name;

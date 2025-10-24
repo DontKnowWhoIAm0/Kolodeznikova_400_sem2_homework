@@ -8,7 +8,7 @@ package ru.kpfu.itis.Kolodeznikova.entity.enums;
 public enum WayOfCommunication {
     TELEGRAM("Telegram"),
     WHATSAPP("WhatsApp"),
-    VK("ВКонтакте"),
+    VK("Vk"),
     EMAIL("Email"),
     SMS("SMS");
 
