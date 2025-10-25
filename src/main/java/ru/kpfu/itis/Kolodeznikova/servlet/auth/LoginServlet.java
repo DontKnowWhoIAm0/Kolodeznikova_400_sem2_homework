@@ -9,12 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
 /**
  * Servlet that handles user login functionality.
- * Supports checking the correctness of the login and password pair.
+ * Supports verification of the login and password combination.
  */
 @WebServlet(name="Log In", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
@@ -40,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 
     /**
      * Handles POST requests for user authorization.
-     * Checks the login and password correctness and authorizes the user.
+     * Checks the login and password pair correctness and authorizes the user.
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,7 +50,7 @@ public class LoginServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        // Validate fields
+        // Validate that fields are not empty
         if (login == null || login.isBlank() || password == null || password.isBlank()) {
             req.setAttribute("error", "Все поля должны быть заполнены");
             req.setAttribute("title", "Авторизация");
@@ -57,7 +58,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        // Check login and password pair incorrectness
+        // Check login and password pair correctness
         String passwordHash = PasswordUtil.encrypt(password);
         try {
             if (userService.checkPasswordAndLogin(login, passwordHash)) {
@@ -70,8 +71,12 @@ public class LoginServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
+        // Create a new session and store the login name
+        HttpSession session = req.getSession();
+        session.setMaxInactiveInterval(60 * 60);
+        session.setAttribute("login", login);
+
         // Redirect to main page after successful authorization
-        req.setAttribute("login", login);
         resp.sendRedirect(req.getContextPath() + "/main");
     }
 }
