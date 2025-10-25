@@ -11,7 +11,6 @@
         <#else>
             <@loginForm />
         </#if>
-
     </div>
 
 </#macro>
