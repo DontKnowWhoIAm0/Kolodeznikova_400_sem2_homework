@@ -1,7 +1,7 @@
-package ru.kpfu.itis.Kolodeznikova.dao.impl;
+package ru.kpfu.itis.Kolodeznikova.dao.core.impl;
 
-import ru.kpfu.itis.Kolodeznikova.dao.WorkoutDao;
-import ru.kpfu.itis.Kolodeznikova.entity.Workout;
+import ru.kpfu.itis.Kolodeznikova.dao.core.WorkoutDao;
+import ru.kpfu.itis.Kolodeznikova.entity.core.Workout;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.*;
 import ru.kpfu.itis.Kolodeznikova.util.ConnectionPool;
 
@@ -19,18 +19,18 @@ public class WorkoutDaoImpl implements WorkoutDao {
     private static final String WORKOUT_TABLE_CREATE_QUERY = """
             CREATE TABLE IF NOT EXISTS sb_db.workouts (
                 id BIGSERIAL PRIMARY KEY,
-                creatorId BIGINT NOT NULL REFERENCES sb_db.users(id),
-                participantId BIGINT NOT NULL REFERENCES sb_db.users(id),
+                creator_id BIGINT NOT NULL REFERENCES sb_db.users(id),
+                participant_id BIGINT NOT NULL REFERENCES sb_db.users(id),
                 sport VARCHAR(50) NOT NULL,
                 city VARCHAR(100) NOT NULL,
                 status VARCHAR(50) NOT NULL,
-                completedDate DATE
+                completed_date DATE
             );
             """;
 
     /** SQL query to add a new workout. */
     private static final String ADD_WORKOUT_QUERY = """
-            INSERT INTO sb_db.workouts (creatorId, participantId, sport, city, status)
+            INSERT INTO sb_db.workouts (creator_id, participant_id, sport, city, status)
             VALUES (?, ?, ?, ?, ?);
             """;
 
@@ -42,26 +42,26 @@ public class WorkoutDaoImpl implements WorkoutDao {
     /** SQL query to update a workout's status and date of complete. */
     private static final String UPDATE_WORKOUT_INFORMATION_QUERY = """
             UPDATE sb_db.workouts
-            SET status = ?, completedDate = ?
+            SET status = ?, completed_date = ?
             WHERE id = ?;
             """;
 
     /** SQL query to get all workouts related to a user (as creator or participant). */
     private static final String GET_ALL_USER_WORKOUTS_QUERY = """
             SELECT * FROM sb_db.workouts
-            WHERE creatorId = ? OR participantId = ?;
+            WHERE creator_id = ? OR participant_id = ?;
             """;
 
     /** SQL query to get all pending workouts where the user is the creator. */
     private static final String GET_ALL_USER_AS_CREATOR_PENDING_WORKOUTS_QUERY = """
             SELECT * FROM sb_db.workouts
-            WHERE creatorId = ? AND status = 'pending';
+            WHERE creator_id = ? AND status = 'pending';
             """;
 
     /** SQL query to get all pending workouts where the user is the participant. */
     private static final String GET_ALL_USER_AS_PARTICIPANT_PENDING_WORKOUTS_QUERY = """
             SELECT * FROM sb_db.workouts
-            WHERE participantId = ? AND status = 'pending';
+            WHERE participant_id = ? AND status = 'pending';
             """;
 
     /** SQL query to delete a workout by ID. */
@@ -223,12 +223,12 @@ public class WorkoutDaoImpl implements WorkoutDao {
     private Workout makeWorkout(ResultSet resultSet) throws SQLException {
         return new Workout(
                 resultSet.getInt("id"),
-                resultSet.getInt("creatorId"),
-                resultSet.getInt("participantId"),
+                resultSet.getInt("creator_id"),
+                resultSet.getInt("participant_id"),
                 Sports.valueOf(resultSet.getString("sport")),
                 resultSet.getString("city"),
                 WorkoutStatus.valueOf(resultSet.getString("status")),
-                (resultSet.getDate("completedDate") != null) ? resultSet.getDate("completedDate").toLocalDate() : null
+                (resultSet.getDate("completed_date") != null) ? resultSet.getDate("completed_date").toLocalDate() : null
         );
     }
 }

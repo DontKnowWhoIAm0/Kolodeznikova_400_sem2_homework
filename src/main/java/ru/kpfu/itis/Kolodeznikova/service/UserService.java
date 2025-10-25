@@ -1,6 +1,6 @@
 package ru.kpfu.itis.Kolodeznikova.service;
 
-import ru.kpfu.itis.Kolodeznikova.entity.User;
+import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 
 import java.sql.SQLException;
 

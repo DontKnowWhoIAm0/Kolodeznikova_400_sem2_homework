@@ -1,7 +1,7 @@
-package ru.kpfu.itis.Kolodeznikova.dao.impl;
+package ru.kpfu.itis.Kolodeznikova.dao.core.impl;
 
-import ru.kpfu.itis.Kolodeznikova.dao.WorkoutRequestDao;
-import ru.kpfu.itis.Kolodeznikova.entity.WorkoutRequest;
+import ru.kpfu.itis.Kolodeznikova.dao.core.WorkoutRequestDao;
+import ru.kpfu.itis.Kolodeznikova.entity.core.WorkoutRequest;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.Sports;
 import ru.kpfu.itis.Kolodeznikova.util.ConnectionPool;
 
@@ -18,14 +18,15 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
     private static final String CREATE_REQUESTS_TABLE_QUERY = """
             CREATE TABLE IF NOT EXISTS sb_db.workout_requests (
                 id BIGSERIAL PRIMARY KEY,
-                creatorId BIGINT NOT NULL REFERENCES sb_db.users(id) ON DELETE CASCADE,
+                creator_id BIGINT NOT NULL REFERENCES sb_db.users(id) ON DELETE CASCADE,
                 sport VARCHAR(50) NOT NULL,
+                description VARCHAR(512) NOT NULL,
                 city VARCHAR(100) NOT NULL,
-                startDate DATE NOT NULL,
-                endDate DATE NOT NULL,
-                isTimeRelevant BOOLEAN NOT NULL,
-                startTime TIME,
-                endTime TIME
+                start_date DATE NOT NULL,
+                end_date DATE NOT NULL,
+                is_time_relevant BOOLEAN NOT NULL,
+                start_time TIME,
+                end_time TIME
             );
             """;
 
@@ -40,8 +41,8 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
 
     /** SQL query to add a new workout request and return its generated ID. */
     private static final String ADD_REQUEST_QUERY = """
-            INSERT INTO sb_db.workout_requests (creatorId, sport, city, startDate, endDate, isTimeRelevant, startTime, endTime)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO sb_db.workout_requests (creator_id, sport, description, city, start_date, end_date, is_time_relevant, start_time, end_time)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             RETURNING id;
             """;
 
@@ -98,12 +99,13 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
         try (PreparedStatement statement = connection.prepareStatement(ADD_REQUEST_QUERY);) {
             statement.setInt(1, workoutRequest.getCreatorId());
             statement.setString(2, workoutRequest.getSport().toString());
-            statement.setString(3, workoutRequest.getCity());
-            statement.setDate(4, Date.valueOf(workoutRequest.getStartDate()));
-            statement.setDate(5, Date.valueOf(workoutRequest.getEndDate()));
-            statement.setBoolean(6, workoutRequest.isTimeRelevant());
-            statement.setTime(7, workoutRequest.getStartTime() != null ? Time.valueOf(workoutRequest.getStartTime()) : null);
-            statement.setTime(8, workoutRequest.getEndTime() != null ? Time.valueOf(workoutRequest.getEndTime()) : null);
+            statement.setString(3, workoutRequest.getDescription());
+            statement.setString(4, workoutRequest.getCity());
+            statement.setDate(5, Date.valueOf(workoutRequest.getStartDate()));
+            statement.setDate(6, Date.valueOf(workoutRequest.getEndDate()));
+            statement.setBoolean(7, workoutRequest.isTimeRelevant());
+            statement.setTime(8, workoutRequest.getStartTime() != null ? Time.valueOf(workoutRequest.getStartTime()) : null);
+            statement.setTime(9, workoutRequest.getEndTime() != null ? Time.valueOf(workoutRequest.getEndTime()) : null);
 
             ResultSet resultSet = statement.executeQuery();
             int id = -1;
@@ -121,7 +123,7 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
                 }
             }
             connection.commit();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             connection.rollback();
             throw new SQLException(e);
         } finally {
@@ -222,15 +224,16 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
     private WorkoutRequest makeWorkoutRequest(ResultSet resultSet) throws SQLException {
         return new WorkoutRequest(
                 resultSet.getInt("id"),
-                resultSet.getInt("creatorId"),
+                resultSet.getInt("creator_id"),
                 getAllRespondentsOfRequest(resultSet.getInt("id")),
                 Sports.valueOf(resultSet.getString("sport")),
+                resultSet.getString("description"),
                 resultSet.getString("city"),
-                (resultSet.getDate("startDate") != null) ? resultSet.getDate("startDate").toLocalDate() : null,
-                (resultSet.getDate("endDate") != null) ? resultSet.getDate("endDate").toLocalDate() : null,
-                resultSet.getBoolean("isTimeRelevant"),
-                (resultSet.getTime("startTime") != null) ? resultSet.getTime("startTime").toLocalTime() : null,
-                (resultSet.getTime("endTime") != null) ? resultSet.getTime("endTime").toLocalTime() : null
+                (resultSet.getDate("start_date") != null) ? resultSet.getDate("start_date").toLocalDate() : null,
+                (resultSet.getDate("end_date") != null) ? resultSet.getDate("end_date").toLocalDate() : null,
+                resultSet.getBoolean("is_time_relevant"),
+                (resultSet.getTime("start_time") != null) ? resultSet.getTime("start_time").toLocalTime() : null,
+                (resultSet.getTime("end_time") != null) ? resultSet.getTime("end_time").toLocalTime() : null
         );
     }
 }

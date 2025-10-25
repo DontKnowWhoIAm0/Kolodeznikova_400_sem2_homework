@@ -1,9 +1,8 @@
-package ru.kpfu.itis.Kolodeznikova.entity;
+package ru.kpfu.itis.Kolodeznikova.entity.core;
 
 import ru.kpfu.itis.Kolodeznikova.entity.enums.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * Represents a workout that has been scheduled or completed.

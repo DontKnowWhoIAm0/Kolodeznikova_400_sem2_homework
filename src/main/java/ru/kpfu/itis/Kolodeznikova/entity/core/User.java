@@ -1,4 +1,4 @@
-package ru.kpfu.itis.Kolodeznikova.entity;
+package ru.kpfu.itis.Kolodeznikova.entity.core;
 
 import ru.kpfu.itis.Kolodeznikova.entity.enums.Gender;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.WayOfCommunication;

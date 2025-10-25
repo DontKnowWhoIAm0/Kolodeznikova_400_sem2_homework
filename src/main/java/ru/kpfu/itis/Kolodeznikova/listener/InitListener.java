@@ -1,7 +1,7 @@
 package ru.kpfu.itis.Kolodeznikova.listener;
 
-import ru.kpfu.itis.Kolodeznikova.dao.*;
-import ru.kpfu.itis.Kolodeznikova.dao.impl.UserDaoImpl;
+import ru.kpfu.itis.Kolodeznikova.dao.core.UserDao;
+import ru.kpfu.itis.Kolodeznikova.dao.core.impl.UserDaoImpl;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;
 import ru.kpfu.itis.Kolodeznikova.service.impl.UserServiceImpl;
 import ru.kpfu.itis.Kolodeznikova.util.ConnectionPool;

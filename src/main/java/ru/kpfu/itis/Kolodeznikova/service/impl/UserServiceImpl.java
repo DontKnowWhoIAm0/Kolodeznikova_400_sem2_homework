@@ -1,7 +1,7 @@
 package ru.kpfu.itis.Kolodeznikova.service.impl;
 
-import ru.kpfu.itis.Kolodeznikova.dao.UserDao;
-import ru.kpfu.itis.Kolodeznikova.entity.User;
+import ru.kpfu.itis.Kolodeznikova.dao.core.UserDao;
+import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;
 import ru.kpfu.itis.Kolodeznikova.util.PasswordUtil;
 

@@ -1,6 +1,6 @@
 package ru.kpfu.itis.Kolodeznikova.servlet.auth;
 
-import ru.kpfu.itis.Kolodeznikova.entity.User;
+import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.Gender;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.WayOfCommunication;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;

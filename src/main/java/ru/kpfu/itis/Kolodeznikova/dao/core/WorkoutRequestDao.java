@@ -1,6 +1,6 @@
-package ru.kpfu.itis.Kolodeznikova.dao;
+package ru.kpfu.itis.Kolodeznikova.dao.core;
 
-import ru.kpfu.itis.Kolodeznikova.entity.WorkoutRequest;
+import ru.kpfu.itis.Kolodeznikova.entity.core.WorkoutRequest;
 
 import java.sql.SQLException;
 

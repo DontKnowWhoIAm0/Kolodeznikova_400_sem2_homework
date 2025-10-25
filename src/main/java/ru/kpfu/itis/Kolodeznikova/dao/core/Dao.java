@@ -1,4 +1,4 @@
-package ru.kpfu.itis.Kolodeznikova.dao;
+package ru.kpfu.itis.Kolodeznikova.dao.core;
 
 import java.sql.SQLException;
 

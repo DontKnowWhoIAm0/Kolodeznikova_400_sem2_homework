@@ -1,7 +1,7 @@
-package ru.kpfu.itis.Kolodeznikova.dao.impl;
+package ru.kpfu.itis.Kolodeznikova.dao.core.impl;
 
-import ru.kpfu.itis.Kolodeznikova.dao.UserDao;
-import ru.kpfu.itis.Kolodeznikova.entity.User;
+import ru.kpfu.itis.Kolodeznikova.dao.core.UserDao;
+import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.*;
 import ru.kpfu.itis.Kolodeznikova.util.ConnectionPool;
 
@@ -19,20 +19,20 @@ public class UserDaoImpl implements UserDao {
             CREATE TABLE IF NOT EXISTS sb_db.users (
                 id BIGSERIAL PRIMARY KEY,
                 login varchar(100) UNIQUE NOT NULL ,
-                passwordHash varchar(512) NOT NULL,
+                password_hash varchar(512) NOT NULL,
                 name varchar(50) NOT NULL,
                 lastname varchar(50) NOT NULL,
                 nickname varchar(50) UNIQUE NOT NULL,
                 gender varchar(10) NOT NULL,
-                wayOfCommunication varchar(20) NOT NULL,
-                contactValue varchar(100) NOT NULL,
-                profileImage varchar(100)
+                way_of_communication varchar(20) NOT NULL,
+                contact_value varchar(100) NOT NULL,
+                profile_image varchar(100)
             );
             """;
 
     /** SQL query to add a new user. */
     private static final String ADD_USER_QUERY = """
-            INSERT INTO sb_db.users (login, passwordHash, name, lastname, nickname, gender, wayOfCommunication, contactValue, profileImage)
+            INSERT INTO sb_db.users (login, password_hash, name, lastname, nickname, gender, way_of_communication, contact_value, profile_image)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
             """;
 
@@ -54,7 +54,7 @@ public class UserDaoImpl implements UserDao {
     /** SQL query to update a user's information. */
     private static final String UPDATE_USER_INFORMATION_QUERY = """
             UPDATE sb_db.users
-            SET name = ?, lastname = ?, nickname = ?, wayOfCommunication = ?, contactValue = ?, profileImage = ?
+            SET name = ?, lastname = ?, nickname = ?, way_of_communication = ?, contact_value = ?, profile_image = ?
             WHERE id = ?;
             """;
 
@@ -221,14 +221,14 @@ public class UserDaoImpl implements UserDao {
         return new User(
                 resultSet.getInt("id"),
                 resultSet.getString("login"),
-                resultSet.getString("passwordHash"),
+                resultSet.getString("password_hash"),
                 resultSet.getString("name"),
                 resultSet.getString("lastname"),
                 resultSet.getString("nickname"),
                 Gender.valueOf(resultSet.getString("gender")),
-                WayOfCommunication.valueOf(resultSet.getString("wayOfCommunication")),
-                resultSet.getString("contactValue"),
-                resultSet.getString("profileImage")
+                WayOfCommunication.valueOf(resultSet.getString("way_of_communication")),
+                resultSet.getString("contact_value"),
+                resultSet.getString("profile_image")
         );
     }
 }
