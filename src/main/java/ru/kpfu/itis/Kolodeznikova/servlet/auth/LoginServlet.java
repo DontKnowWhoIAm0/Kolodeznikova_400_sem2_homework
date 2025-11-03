@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
         // Check login and password pair correctness
         String passwordHash = PasswordUtil.encrypt(password);
         try {
-            if (userService.checkPasswordAndLogin(login, passwordHash)) {
+            if (!userService.checkPasswordAndLogin(login, passwordHash)) {
                 req.setAttribute("error", "Неверный логин или пароль");
                 req.setAttribute("title", "Авторизация");
                 req.getRequestDispatcher("/WEB-INF/templates/auth/auth_page.ftl").forward(req, resp);

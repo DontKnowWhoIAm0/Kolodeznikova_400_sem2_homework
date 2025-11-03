@@ -1,2 +1,4 @@
-<button id="notification-btn" class="icon-btn">К</button>
-<button id="sidebar-btn" class="icon-btn">М</button>
+<div class="header">
+    <button class="notificationsButton" id="notificationsButton">🔔</button>
+    <button class="sidebarButton" id="sidebarButton">☰</button>
+</div>

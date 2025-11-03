@@ -1,4 +1,4 @@
-<#assign pageCss="css/auth.css">
+<#assign pageCss=["css/auth.css"]>
 
 <#include "/WEB-INF/templates/auth/signup_form.ftl">
 <#include "/WEB-INF/templates/auth/login_form.ftl">

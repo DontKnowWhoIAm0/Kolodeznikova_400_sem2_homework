@@ -12,4 +12,6 @@ public interface UserService {
     boolean loginExists(String login) throws SQLException;
     boolean nicknameExists(String nickname) throws SQLException;
     boolean checkPasswordAndLogin(String login, String passwordHash) throws SQLException;
+    int findUserIdByLogin(String login) throws SQLException;
+    User findUserById(int id) throws SQLException;
 }

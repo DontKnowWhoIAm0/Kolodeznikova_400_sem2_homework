@@ -73,6 +73,12 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
             DELETE FROM sb_db.workout_request_respondents WHERE request_id = ? AND respondent_id = ?;
             """;
 
+    private static final String GET_ALL_NOT_USER_REQUESTS_QUERY = """
+            SELECT * FROM sb_db.workout_requests WHERE creator_id <> ?;
+            """;
+
+
+
     private final ConnectionPool connectionPool;
 
     /**
@@ -216,6 +222,23 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
             connectionPool.releaseConnection(connection);
         }
         return respondentIds;
+    }
+
+    @Override
+    public List<WorkoutRequest> getAllNotUserRequests(int userId) throws SQLException {
+        Connection connection = connectionPool.getConnection();
+        List<WorkoutRequest> workoutRequests = new ArrayList<>();
+
+        try(PreparedStatement statement = connection.prepareStatement(GET_ALL_NOT_USER_REQUESTS_QUERY)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                workoutRequests.add(makeWorkoutRequest(resultSet));
+            }
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return workoutRequests;
     }
 
     /**

@@ -1,4 +1,4 @@
-<div id="notification-popup" class="notification-popup">
+<div id="notifications" class="notifications">
     <div class="notification-header">
         <span>Уведомления</span>
     </div>

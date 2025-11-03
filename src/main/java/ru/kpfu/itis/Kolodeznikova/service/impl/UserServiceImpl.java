@@ -3,7 +3,6 @@ package ru.kpfu.itis.Kolodeznikova.service.impl;
 import ru.kpfu.itis.Kolodeznikova.dao.core.UserDao;
 import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;
-import ru.kpfu.itis.Kolodeznikova.util.PasswordUtil;
 
 import java.sql.SQLException;
 
@@ -42,14 +41,26 @@ public class UserServiceImpl implements UserService {
         return userDao.findByNickname(nickname) != null;
     }
 
+
+
     /**
      * Checks the correctness of the login and password pair.
      */
-    public boolean checkPasswordAndLogin(String login, String password) throws SQLException {
+    public boolean checkPasswordAndLogin(String login, String passwordHash) throws SQLException {
         User user = userDao.findByLogin(login);
         if (user == null) {
             return false;
         }
-        return PasswordUtil.encrypt(password).equals(user.getPasswordHash());
+        return passwordHash.equals(user.getPasswordHash());
+    }
+
+    @Override
+    public int findUserIdByLogin(String login) throws SQLException {
+        return userDao.findByLogin(login).getId();
+    }
+
+    @Override
+    public User findUserById(int id) throws SQLException {
+        return userDao.findById(id);
     }
 }

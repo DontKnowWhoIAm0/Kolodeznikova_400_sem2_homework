@@ -1,4 +1,4 @@
-package ru.kpfu.itis.Kolodeznikova.dao.core;
+package ru.kpfu.itis.Kolodeznikova.service;
 
 import ru.kpfu.itis.Kolodeznikova.entity.core.WorkoutRequest;
 
@@ -6,10 +6,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * DAO interface for working with WorkoutRequest entities.
+ * Service interface for managing Workout Request entities.
  */
-public interface WorkoutRequestDao extends Dao<WorkoutRequest> {
+public interface WorkoutRequestService {
+    WorkoutRequest findById(int workoutRequestId) throws SQLException;
+    void createWorkoutRequest(WorkoutRequest workoutRequest) throws SQLException;
+    void deleteWorkoutRequest(WorkoutRequest workoutRequest) throws SQLException;
     void addRespondentToRequest(WorkoutRequest workoutRequest, int respondentId) throws SQLException;
     void deleteRespondentFromRequest(WorkoutRequest workoutRequest, int respondentId) throws SQLException;
     List<WorkoutRequest> getAllNotUserRequests(int userId) throws SQLException;
+
 }
