@@ -17,18 +17,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Servlet that handles functionality of main page.
+ */
 @WebServlet(name="Main", urlPatterns = "/main")
 public class MainPageServlet extends HttpServlet {
 
     private WorkoutRequestService workoutRequestService;
     private UserService userService;
 
+    /**
+     * Initializes the servlet and gets the UserService and WorkoutRequestService instances from the servlet context.
+     */
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.workoutRequestService = (WorkoutRequestService) config.getServletContext().getAttribute("workoutRequestService");
         this.userService = (UserService) config.getServletContext().getAttribute("userService");
     }
 
+    /**
+     * Handles GET requests for the main page.
+     * Retrieves a list of workout requests that do not belong to the current user
+     * and forwarded it to the main page template.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("contextPath", req.getContextPath());

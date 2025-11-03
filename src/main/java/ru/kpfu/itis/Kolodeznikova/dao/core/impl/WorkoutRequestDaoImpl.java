@@ -224,6 +224,9 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
         return respondentIds;
     }
 
+    /**
+     * Returns a list of all requests that was created by other users.
+     */
     @Override
     public List<WorkoutRequest> getAllNotUserRequests(int userId) throws SQLException {
         Connection connection = connectionPool.getConnection();

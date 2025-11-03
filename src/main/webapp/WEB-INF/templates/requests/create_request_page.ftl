@@ -34,7 +34,7 @@
                 <div id="timeFields" style="display: none;">
                     <label>Время начала:</label>
                     <input type="time" name="startTime">
-
+                    <br>
                     <label>Время окончания:</label>
                     <input type="time" name="endTime">
                 </div>

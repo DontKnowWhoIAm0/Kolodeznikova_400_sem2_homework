@@ -1,9 +1,11 @@
 package ru.kpfu.itis.Kolodeznikova.servlet.auth;
 
+import com.cloudinary.utils.ObjectUtils;
 import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.Gender;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.WayOfCommunication;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;
+import ru.kpfu.itis.Kolodeznikova.util.CloudinaryUtil;
 import ru.kpfu.itis.Kolodeznikova.util.PasswordUtil;
 
 import javax.servlet.ServletConfig;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * Servlet that handles user registration functionality.
@@ -30,6 +33,7 @@ import java.sql.SQLException;
 public class SignUpServlet extends HttpServlet {
 
     private UserService userService;
+    private CloudinaryUtil cloudUtil;
 
     /** Number of directories for storing profile images to avoid file system overload. */
     private static final int DIRECTORIES_COUNT = 100;
@@ -40,6 +44,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.userService = (UserService) config.getServletContext().getAttribute("userService");
+        this.cloudUtil = (CloudinaryUtil) config.getServletContext().getAttribute("cloudUtil");
     }
 
     /**
@@ -68,7 +73,6 @@ public class SignUpServlet extends HttpServlet {
         String genderStr = req.getParameter("gender");
         String wayOfCommunicationStr = req.getParameter("wayOfCommunication");
         String contactValue = req.getParameter("contactValue");
-        String profileImage = uploadProfileImage(req.getPart("profile_image"));
 
         // Validate required fields
         if (login == null || login.isBlank() ||
@@ -109,10 +113,20 @@ public class SignUpServlet extends HttpServlet {
         Gender gender = Gender.valueOf(genderStr);
         WayOfCommunication wayOfCommunication = WayOfCommunication.valueOf(wayOfCommunicationStr.toUpperCase());
         String passwordHash = PasswordUtil.encrypt(password);
+        String profileImageUrl = null;
+
+        Part part = req.getPart("profile_image");
+        try (InputStream is = part.getInputStream()) {
+            byte[] imageBytes = new byte[is.available()];
+            int bytesRead = is.read(imageBytes);
+            Map uploadResult = cloudUtil.getInstance().uploader().upload(imageBytes, ObjectUtils.emptyMap());
+            profileImageUrl = (String) uploadResult.get("secure_url");
+        }
+
 
         // Create new User object and add into the database
         User user = new User(login, passwordHash, name, lastname, nickname, gender,
-                wayOfCommunication, contactValue, profileImage);
+                wayOfCommunication, contactValue, profileImageUrl);
         try {
             userService.registerUser(user);
         } catch (SQLException e) {

@@ -9,6 +9,7 @@ import ru.kpfu.itis.Kolodeznikova.service.UserService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutRequestService;
 import ru.kpfu.itis.Kolodeznikova.service.impl.UserServiceImpl;
 import ru.kpfu.itis.Kolodeznikova.service.impl.WorkoutRequestServiceImpl;
+import ru.kpfu.itis.Kolodeznikova.util.CloudinaryUtil;
 import ru.kpfu.itis.Kolodeznikova.util.ConnectionPool;
 
 import javax.servlet.ServletContextEvent;
@@ -27,14 +28,22 @@ public class InitListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         try {
-            Properties properties = new Properties();
-            InputStream inputStream = getClass().getResourceAsStream("/db.properties");
-
-            properties.load(inputStream);
+            Properties dbProperties = new Properties();
+            InputStream dbInputStream = getClass().getResourceAsStream("/db.properties");
+            dbProperties.load(dbInputStream);
             pool = new ConnectionPool(
-                    properties.getProperty("url"),
-                    properties.getProperty("user"),
-                    properties.getProperty("password")
+                    dbProperties.getProperty("url"),
+                    dbProperties.getProperty("user"),
+                    dbProperties.getProperty("password")
+            );
+
+            Properties cloudProperties = new Properties();
+            InputStream cloudInputStream = getClass().getResourceAsStream("/cloud.properties");
+            cloudProperties.load(cloudInputStream);
+            CloudinaryUtil cloudUtil = new CloudinaryUtil(
+                    cloudProperties.getProperty("cloud_name"),
+                    cloudProperties.getProperty("api_key"),
+                    cloudProperties.getProperty("api_secret")
             );
 
             UserDao userDao = new UserDaoImpl(pool);
@@ -45,6 +54,7 @@ public class InitListener implements ServletContextListener {
             sce.getServletContext().setAttribute("userDao", userDao);
             sce.getServletContext().setAttribute("userService", userService);
             sce.getServletContext().setAttribute("workoutRequestService", workoutRequestService);
+            sce.getServletContext().setAttribute("cloudUtil", cloudUtil);
 
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);

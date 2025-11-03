@@ -18,18 +18,27 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * Servlet that handles workout request creation functionality.
+ */
 @WebServlet(name = "Create Request", urlPatterns = "/createRequest")
 public class CreateRequestServlet extends HttpServlet {
 
     private WorkoutRequestService workoutRequestService;
     private UserService userService;
 
+    /**
+     * Initializes the servlet and gets the UserService and WorkoutRequestService instances from the servlet context.
+     */
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.workoutRequestService = (WorkoutRequestService) config.getServletContext().getAttribute("workoutRequestService");
         this.userService = (UserService) config.getServletContext().getAttribute("userService");
     }
 
+    /**
+     * Handles GET requests by forwarding the user to the request creation page.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("contextPath", req.getContextPath());
@@ -37,6 +46,9 @@ public class CreateRequestServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/templates/requests/create_request_page.ftl").forward(req, resp);
     }
 
+    /**
+     * Handles POST requests for creating a new workout request.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String sportStr = req.getParameter("sport");
@@ -104,17 +116,8 @@ public class CreateRequestServlet extends HttpServlet {
         }
 
         WorkoutRequest workoutRequest = new WorkoutRequest(
-                creatorId,
-                List.of(),
-                sport,
-                description,
-                city,
-                startDate,
-                endDate,
-                isTimeRelevant,
-                startTime,
-                endTime
-
+                creatorId, List.of(), sport, description, city,
+                startDate, endDate, isTimeRelevant, startTime, endTime
         );
 
         try {

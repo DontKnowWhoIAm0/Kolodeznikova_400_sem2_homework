@@ -41,8 +41,6 @@ public class UserServiceImpl implements UserService {
         return userDao.findByNickname(nickname) != null;
     }
 
-
-
     /**
      * Checks the correctness of the login and password pair.
      */
@@ -54,11 +52,17 @@ public class UserServiceImpl implements UserService {
         return passwordHash.equals(user.getPasswordHash());
     }
 
+    /**
+     * Finds user's ID by login and returns its.
+     */
     @Override
     public int findUserIdByLogin(String login) throws SQLException {
         return userDao.findByLogin(login).getId();
     }
 
+    /**
+     * Finds user's ID by login and returns its.
+     */
     @Override
     public User findUserById(int id) throws SQLException {
         return userDao.findById(id);

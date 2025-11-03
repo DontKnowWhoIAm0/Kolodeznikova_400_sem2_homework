@@ -58,6 +58,9 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
         workoutRequestDao.deleteRespondentFromRequest(workoutRequest, respondentId);
     }
 
+    /**
+     * Returns a list of all requests that was created by other users.
+     */
     @Override
     public List<WorkoutRequest> getAllNotUserRequests(int userId) throws SQLException {
         return workoutRequestDao.getAllNotUserRequests(userId);
