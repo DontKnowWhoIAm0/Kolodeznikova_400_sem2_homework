@@ -90,7 +90,7 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
             """;
 
     private static final String GET_ALL_AVAILABLE_REQUESTS_QUERY = """
-            SELECT wr.* 
+            SELECT wr.*
             FROM sb_db.workout_requests wr LEFT JOIN sb_db.workout_request_respondents r 
                 ON wr.id = r.request_id AND r.respondent_id = ?
             WHERE wr.creator_id <> ? AND r.respondent_id IS NULL;
@@ -100,6 +100,11 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
             SELECT * FROM sb_db.workout_requests
             WHERE creator_id = ?;
             """;
+
+    private static final String GET_ALL_FOREIGN_REQUESTS_QUERY = """
+        SELECT * FROM sb_db.workout_requests
+        WHERE creator_id <> ?;
+        """;
 
 
     private final ConnectionPool connectionPool;
@@ -125,7 +130,7 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
     public void create(WorkoutRequest workoutRequest) throws SQLException {
         Connection connection = connectionPool.getConnection();
         connection.setAutoCommit(false);
-        try (PreparedStatement statement = connection.prepareStatement(ADD_REQUEST_QUERY);) {
+        try (PreparedStatement statement = connection.prepareStatement(ADD_REQUEST_QUERY)) {
             statement.setInt(1, workoutRequest.getCreatorId());
             statement.setString(2, workoutRequest.getSport().toString());
             statement.setString(3, workoutRequest.getDescription());
@@ -278,6 +283,23 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 workoutRequests.add(makeWorkoutRequest(resultSet));
+            }
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return workoutRequests;
+    }
+
+    @Override
+    public List<WorkoutRequest> getAllForeignRequests(int userId) throws SQLException {
+        Connection connection = connectionPool.getConnection();
+        List<WorkoutRequest> workoutRequests = new ArrayList<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_FOREIGN_REQUESTS_QUERY)) {
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                workoutRequests.add(makeWorkoutRequest(rs));
             }
         } finally {
             connectionPool.releaseConnection(connection);

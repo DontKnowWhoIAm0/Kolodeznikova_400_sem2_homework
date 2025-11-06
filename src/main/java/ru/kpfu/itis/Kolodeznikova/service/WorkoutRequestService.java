@@ -18,4 +18,5 @@ public interface WorkoutRequestService {
     List<WorkoutRequest> getAllNotUserRequests(int userId) throws SQLException;
     List<WorkoutRequestDto> getAllNotUserRequestsDto(int userId) throws SQLException;
     List<WorkoutRequestDto> getUserRequestsDto(int userId) throws SQLException;
+    List<WorkoutRequestDto> getAllForeignRequestsDto(int userId) throws SQLException;
 }

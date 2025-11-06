@@ -104,4 +104,23 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<WorkoutRequestDto> getAllForeignRequestsDto(int userId) throws SQLException {
+        List<WorkoutRequest> requests = workoutRequestDao.getAllForeignRequests(userId);
+
+        return requests.stream()
+                .map(req -> {
+                    try {
+                        return new WorkoutRequestDto(
+                                req,
+                                userService.findUserById(req.getCreatorId()),
+                                req.getRespondentsId().contains(userId)
+                        );
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+    }
+
 }
