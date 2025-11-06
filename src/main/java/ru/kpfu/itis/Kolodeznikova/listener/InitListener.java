@@ -1,14 +1,18 @@
 package ru.kpfu.itis.Kolodeznikova.listener;
 
 import ru.kpfu.itis.Kolodeznikova.dao.core.UserDao;
+import ru.kpfu.itis.Kolodeznikova.dao.core.WorkoutDao;
 import ru.kpfu.itis.Kolodeznikova.dao.core.WorkoutRequestDao;
 import ru.kpfu.itis.Kolodeznikova.dao.core.impl.UserDaoImpl;
+import ru.kpfu.itis.Kolodeznikova.dao.core.impl.WorkoutDaoImpl;
 import ru.kpfu.itis.Kolodeznikova.dao.core.impl.WorkoutRequestDaoImpl;
 import ru.kpfu.itis.Kolodeznikova.dto.workouts.WorkoutRequestDto;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutRequestService;
+import ru.kpfu.itis.Kolodeznikova.service.WorkoutService;
 import ru.kpfu.itis.Kolodeznikova.service.impl.UserServiceImpl;
 import ru.kpfu.itis.Kolodeznikova.service.impl.WorkoutRequestServiceImpl;
+import ru.kpfu.itis.Kolodeznikova.service.impl.WorkoutServiceImpl;
 import ru.kpfu.itis.Kolodeznikova.util.CloudinaryUtil;
 import ru.kpfu.itis.Kolodeznikova.util.ConnectionPool;
 
@@ -48,12 +52,15 @@ public class InitListener implements ServletContextListener {
 
             UserDao userDao = new UserDaoImpl(pool);
             WorkoutRequestDao workoutRequestDao = new WorkoutRequestDaoImpl(pool);
+            WorkoutDao workoutDao = new WorkoutDaoImpl(pool);
             UserService userService = new UserServiceImpl(userDao);
             WorkoutRequestService workoutRequestService = new WorkoutRequestServiceImpl(workoutRequestDao);
+            WorkoutService workoutService = new WorkoutServiceImpl(workoutDao);
 
             sce.getServletContext().setAttribute("userDao", userDao);
             sce.getServletContext().setAttribute("userService", userService);
             sce.getServletContext().setAttribute("workoutRequestService", workoutRequestService);
+            sce.getServletContext().setAttribute("workoutService", workoutService);
             sce.getServletContext().setAttribute("cloudUtil", cloudUtil);
 
         } catch (IOException | SQLException e) {

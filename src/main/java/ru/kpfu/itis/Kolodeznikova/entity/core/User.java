@@ -37,10 +37,10 @@ public class User {
     private final String contactValue;
 
     /** File path to the user's profile image. */
-    private final String profileImage;
+    private final String profileImageUrl;
 
     /** Constructor including ID. */
-    public User(int id, String login, String passwordHash, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
+    public User(int id, String login, String passwordHash, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImageUrl) {
         this.id = id;
         this.login = login;
         this.passwordHash = passwordHash;
@@ -50,11 +50,11 @@ public class User {
         this.gender = gender;
         this.wayOfCommunication = wayOfCommunication;
         this.contactValue = contactValue;
-        this.profileImage = profileImage;
+        this.profileImageUrl = profileImageUrl;
     }
 
     /** Constructor without ID for creating new users before saving to DB. */
-    public User(String login, String passwordHash, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImage) {
+    public User(String login, String passwordHash, String name, String lastname, String nickname, Gender gender, WayOfCommunication wayOfCommunication, String contactValue, String profileImageUrl) {
         this.login = login;
         this.passwordHash = passwordHash;
         this.name = name;
@@ -63,7 +63,7 @@ public class User {
         this.gender = gender;
         this.wayOfCommunication = wayOfCommunication;
         this.contactValue = contactValue;
-        this.profileImage = profileImage;
+        this.profileImageUrl = profileImageUrl;
     }
 
     public int getId() {
@@ -102,8 +102,8 @@ public class User {
         return contactValue;
     }
 
-    public String getProfileImage() {
-        return profileImage;
+    public String getProfileImageUrl() {
+        return profileImageUrl;
     }
 }
 

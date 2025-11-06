@@ -98,7 +98,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(6, user.getGender().toString());
             statement.setString(7, user.getWayOfCommunication().toString());
             statement.setString(8, user.getContactValue());
-            statement.setString(9, user.getProfileImage());
+            statement.setString(9, user.getProfileImageUrl());
             statement.executeUpdate();
         } finally {
             connectionPool.releaseConnection(connection);
@@ -174,7 +174,7 @@ public class UserDaoImpl implements UserDao {
             statement.setString(3, user.getNickname());
             statement.setString(4, user.getWayOfCommunication().toString());
             statement.setString(5, user.getContactValue());
-            statement.setString(6, user.getProfileImage());
+            statement.setString(6, user.getProfileImageUrl());
             statement.setInt(7, user.getId());
             statement.executeUpdate();
         } finally {
