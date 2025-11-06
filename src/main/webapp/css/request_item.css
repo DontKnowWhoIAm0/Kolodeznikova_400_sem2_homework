@@ -1,0 +1,100 @@
+.request_list {
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+}
+
+.request-item:first-child {
+    margin-top: -32px;
+
+
+}
+
+.request-item {
+    display: flex;
+    border: 1px solid #00c77b;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 30px;
+    width: 55%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+
+}
+
+.request-info {
+    flex: 1;
+}
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.profile-info img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #3f3f3f;
+    border: 3px solid #FF8C00;
+}
+
+.profile-info .nickname {
+    font-size: 18px;
+    color: #000000;
+}
+
+.sport {
+    font-size: 26px;
+    font-weight: 600;
+    color: #000;
+    margin: 0 0 8px 0;
+}
+
+.city-time {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.date-range {
+    color: #FF8C00;
+    font-weight: 500;
+}
+
+.description {
+    font-size: 18px;
+    color: #111;
+    margin: 0;
+}
+
+.approve-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-top: auto;
+
+
+}
+
+.approve-button button {
+    background-color: #00c77b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    height: auto;
+    align-self: flex-start;
+}
+
+.approve-button .approve:hover {
+    background-color: #00a86b;
+}

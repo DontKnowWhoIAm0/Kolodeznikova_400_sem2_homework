@@ -1,4 +1,7 @@
-<#assign pageCss=["css/fragments/sidebar.css", "css/fragments/notifications.css"]>
+<#assign pageCss=["css/fragments/sidebar.css", "css/fragments/notifications.css", "css/fragments/header.css", "css/request_item.css", "css/main.css"]>
+
+<#include "/WEB-INF/templates/main/requests_list.ftl">
+<#include "/WEB-INF/templates/main/workouts_list.ftl">
 
 <#macro content>
 
@@ -6,18 +9,13 @@
     <#include "/WEB-INF/templates/fragments/sidebar.ftl">
     <#include "/WEB-INF/templates/fragments/notifications.ftl">
 
-    <div class="request_list">
-        <#if requests?has_content>
-            <#list requests as request>
-                <#assign creator = creatorsMap[request.creatorId?string]!>
-                <#include "request_item.ftl">
-            </#list>
+    <div class="auth-container">
+        <#if title == "Главная">
+            <@request_list />
         <#else>
-            <p>Активных запросов нет.</p>
+            <@workout_list />
         </#if>
     </div>
-
-    <a href="${contextPath}/createRequest" class="new-request">➕</a>
 
     <script src="${contextPath}/js/fragments/sidebar.js"></script>
     <script src="${contextPath}/js/fragments/notifications.js"></script>
