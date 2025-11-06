@@ -23,9 +23,6 @@
     </div>
 
     <div class="approve-button">
-        <form action="${contextPath}/respondRequest" method="post">
-            <input type="hidden" name="requestId" value="${request.id}">
-            <button type="submit" class="approve">Откликнуться</button>
-        </form>
+        <button class="approve" data-request-id="${request.id}">Откликнуться</button>
     </div>
 </div>

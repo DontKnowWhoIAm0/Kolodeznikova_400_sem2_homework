@@ -22,7 +22,7 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
                 id BIGSERIAL PRIMARY KEY,
                 creator_id BIGINT NOT NULL REFERENCES sb_db.users(id) ON DELETE CASCADE,
                 sport VARCHAR(50) NOT NULL,
-                description VARCHAR(512) NOT NULL,
+                description TEXT NOT NULL,
                 city VARCHAR(100) NOT NULL,
                 start_date DATE NOT NULL,
                 end_date DATE NOT NULL,

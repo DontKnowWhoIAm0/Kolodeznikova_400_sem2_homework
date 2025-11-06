@@ -17,8 +17,12 @@
         </#if>
     </div>
 
+    <script>
+        const contextPath = "${contextPath}";
+    </script>
     <script src="${contextPath}/js/fragments/sidebar.js"></script>
     <script src="${contextPath}/js/fragments/notifications.js"></script>
+    <script src="${contextPath}/js/processingApproveButton.js"></script>
 
 </#macro>
 
