@@ -96,6 +96,11 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
             WHERE wr.creator_id <> ? AND r.respondent_id IS NULL;
             """;
 
+    private static final String GET_ALL_USER_REQUESTS_QUERY = """
+            SELECT * FROM sb_db.workout_requests
+            WHERE creator_id = ?;
+            """;
+
 
     private final ConnectionPool connectionPool;
 
@@ -263,6 +268,23 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
         return workoutRequests;
     }
 
+    @Override
+    public List<WorkoutRequest> getAllUserRequests(int userId) throws SQLException {
+        Connection connection = connectionPool.getConnection();
+        List<WorkoutRequest> workoutRequests = new ArrayList<>();
+
+        try (PreparedStatement statement = connection.prepareStatement(GET_ALL_USER_REQUESTS_QUERY)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                workoutRequests.add(makeWorkoutRequest(resultSet));
+            }
+        } finally {
+            connectionPool.releaseConnection(connection);
+        }
+        return workoutRequests;
+    }
+
     /**
      * Additional method to make a Workout Request object from ResultSet.
      */
@@ -281,4 +303,6 @@ public class WorkoutRequestDaoImpl implements WorkoutRequestDao {
                 (resultSet.getTime("end_time") != null) ? resultSet.getTime("end_time").toLocalTime() : null
         );
     }
+
+
 }

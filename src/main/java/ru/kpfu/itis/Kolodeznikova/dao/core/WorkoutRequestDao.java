@@ -12,4 +12,5 @@ public interface WorkoutRequestDao extends Dao<WorkoutRequest> {
     void addRespondentToRequest(WorkoutRequest workoutRequest, int respondentId) throws SQLException;
     void deleteRespondentFromRequest(WorkoutRequest workoutRequest, int respondentId) throws SQLException;
     List<WorkoutRequest> getAllNotUserRequests(int userId) throws SQLException;
+    List<WorkoutRequest> getAllUserRequests(int userId) throws SQLException;
 }

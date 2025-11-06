@@ -6,7 +6,6 @@ import ru.kpfu.itis.Kolodeznikova.dao.core.WorkoutRequestDao;
 import ru.kpfu.itis.Kolodeznikova.dao.core.impl.UserDaoImpl;
 import ru.kpfu.itis.Kolodeznikova.dao.core.impl.WorkoutDaoImpl;
 import ru.kpfu.itis.Kolodeznikova.dao.core.impl.WorkoutRequestDaoImpl;
-import ru.kpfu.itis.Kolodeznikova.dto.workouts.WorkoutRequestDto;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutRequestService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutService;
@@ -54,7 +53,7 @@ public class InitListener implements ServletContextListener {
             WorkoutRequestDao workoutRequestDao = new WorkoutRequestDaoImpl(pool);
             WorkoutDao workoutDao = new WorkoutDaoImpl(pool);
             UserService userService = new UserServiceImpl(userDao);
-            WorkoutRequestService workoutRequestService = new WorkoutRequestServiceImpl(workoutRequestDao);
+            WorkoutRequestService workoutRequestService = new WorkoutRequestServiceImpl(workoutRequestDao, userService);
             WorkoutService workoutService = new WorkoutServiceImpl(workoutDao);
 
             sce.getServletContext().setAttribute("userDao", userDao);

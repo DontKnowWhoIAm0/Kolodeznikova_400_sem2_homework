@@ -17,12 +17,10 @@ import java.sql.SQLException;
 public class RespondRequestServlet extends HttpServlet {
 
     private WorkoutRequestService workoutRequestService;
-    private UserService userService;
 
     @Override
     public void init(ServletConfig config) {
         workoutRequestService = (WorkoutRequestService) config.getServletContext().getAttribute("workoutRequestService");
-        userService = (UserService) config.getServletContext().getAttribute("userService");
     }
 
     @Override

@@ -1,11 +1,15 @@
 package ru.kpfu.itis.Kolodeznikova.service.impl;
 
 import ru.kpfu.itis.Kolodeznikova.dao.core.WorkoutRequestDao;
+import ru.kpfu.itis.Kolodeznikova.dto.WorkoutRequestDto;
+import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 import ru.kpfu.itis.Kolodeznikova.entity.core.WorkoutRequest;
+import ru.kpfu.itis.Kolodeznikova.service.UserService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutRequestService;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service class that provides high-level operations for managing WorkoutRequest entities.
@@ -13,9 +17,11 @@ import java.util.List;
 public class WorkoutRequestServiceImpl implements WorkoutRequestService {
 
     private final WorkoutRequestDao workoutRequestDao;
+    private final UserService userService;
 
-    public WorkoutRequestServiceImpl(WorkoutRequestDao workoutRequestDao) {
+    public WorkoutRequestServiceImpl(WorkoutRequestDao workoutRequestDao, UserService userService) {
         this.workoutRequestDao = workoutRequestDao;
+        this.userService = userService;
     }
 
     /**
@@ -64,6 +70,38 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
     @Override
     public List<WorkoutRequest> getAllNotUserRequests(int userId) throws SQLException {
         return workoutRequestDao.getAllNotUserRequests(userId);
+    }
+
+    @Override
+    public List<WorkoutRequestDto> getAllNotUserRequestsDto(int userId) throws SQLException {
+        List<WorkoutRequest> requests = workoutRequestDao.getAllNotUserRequests(userId);
+
+        return requests.stream()
+                .map(req -> {
+                    try {
+                        User creator = userService.findUserById(req.getCreatorId());
+                        boolean hasResponded = req.getRespondentsId() != null && req.getRespondentsId().contains(userId);
+                        return new WorkoutRequestDto(req, creator, hasResponded);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WorkoutRequestDto> getUserRequestsDto(int userId) throws SQLException {
+        List<WorkoutRequest> myRequests = workoutRequestDao.getAllUserRequests(userId);
+
+        return myRequests.stream()
+                .map(req -> {
+                    try {
+                        return new WorkoutRequestDto(req, userService.findUserById(userId), false);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 
 }
