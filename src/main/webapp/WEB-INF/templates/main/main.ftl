@@ -1,4 +1,4 @@
-<#assign pageCss=["css/fragments/sidebar.css", "css/fragments/notifications.css", "css/fragments/header.css", "css/request_item.css", "css/main.css"]>
+<#assign pageCss=["css/fragments/sidebar.css", "css/user_requests_list.css", "css/fragments/notifications.css", "css/fragments/header.css", "css/request_item.css", "css/main.css"]>
 
 <#include "/WEB-INF/templates/main/all_requests_list.ftl">
 <#include "/WEB-INF/templates/main/user_requests_list.ftl">
