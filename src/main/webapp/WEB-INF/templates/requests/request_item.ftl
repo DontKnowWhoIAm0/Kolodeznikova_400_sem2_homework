@@ -25,21 +25,22 @@
     <div class="action-button">
 
         <#if request.creatorId == userId>
-            <button class="delete-request" data-request-id="${request.id}"
+            <button class="delete-request"
                     onclick="location.href='/requests/delete/${request.id}'">
                 Удалить
             </button>
+
+        <#elseif dto.hasResponded>
+            <button class="cancel-response"
+                    onclick="location.href='/requests/cancel/${request.id}'">
+                Отменить отклик
+            </button>
+
         <#else>
-
-<#--            <#if currentUser.hasRespondedTo(request.id)>-->
-<#--                <button class="cancel-response" data-request-id="${request.id}"-->
-<#--                        onclick="location.href='/requests/cancel/${request.id}'">-->
-<#--                    Отменить отклик-->
-<#--                </button>-->
-<#--            <#else>-->
-                <button class="approve" data-request-id="${request.id}">Откликнуться</button>
-<#--            </#if>-->
-
+            <button class="approve" data-request-id="${request.id}">
+                Откликнуться
+            </button>
         </#if>
+
     </div>
 </div>

@@ -1,8 +1,6 @@
 package ru.kpfu.itis.Kolodeznikova.servlet.main;
 
 import ru.kpfu.itis.Kolodeznikova.dto.WorkoutRequestDto;
-import ru.kpfu.itis.Kolodeznikova.entity.core.User;
-import ru.kpfu.itis.Kolodeznikova.entity.core.WorkoutRequest;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutRequestService;
 
@@ -14,57 +12,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Servlet that handles functionality of main page.
- */
-@WebServlet(name="Main", urlPatterns = "/main")
-public class MainPageServlet extends HttpServlet {
+@WebServlet(name = "Requests", urlPatterns = "/requests")
+public class RequestsPageServlet extends HttpServlet {
 
     private WorkoutRequestService workoutRequestService;
     private UserService userService;
 
-    /**
-     * Initializes the servlet and gets the UserService and WorkoutRequestService instances from the servlet context.
-     */
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.workoutRequestService = (WorkoutRequestService) config.getServletContext().getAttribute("workoutRequestService");
         this.userService = (UserService) config.getServletContext().getAttribute("userService");
     }
 
-    /**
-     * Handles GET requests for the main page.
-     * Retrieves a list of workout requests that do not belong to the current user
-     * and forwarded it to the main page template.
-     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("title", "Главная");
+
+        req.setAttribute("title", "Запросы");
         req.setAttribute("contextPath", req.getContextPath());
 
         Integer userId = (Integer) req.getSession().getAttribute("userId");
 
         try {
-            List<WorkoutRequestDto> allDtos = workoutRequestService.getAllNotUserRequestsDto(userId);
+            List<WorkoutRequestDto> myRequests = workoutRequestService.getUserRequestsDto(userId);
+            List<WorkoutRequestDto> foreignRequests = workoutRequestService.getAllNotUserRequestsDto(userId);
 
-            List<WorkoutRequestDto> notResponded =
-                    allDtos.stream()
-                            .filter(dto -> !dto.isHasResponded())
-                            .collect(Collectors.toList());
-
-            Map<String, User> creatorsMap = new HashMap<>();
-            for (WorkoutRequestDto dto : notResponded) {
-                creatorsMap.put(String.valueOf(dto.getCreator().getId()), dto.getCreator());
-            }
+            List<WorkoutRequestDto> respondedRequests = foreignRequests.stream()
+                    .filter(WorkoutRequestDto::isHasResponded)
+                    .collect(Collectors.toList());
 
             req.setAttribute("userId", userId);
-            req.setAttribute("requests", notResponded);
-            req.setAttribute("creatorsMap", creatorsMap);
+            req.setAttribute("respondedRequests", respondedRequests);
+            req.setAttribute("userRequests", myRequests);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

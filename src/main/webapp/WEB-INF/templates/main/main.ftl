@@ -1,6 +1,7 @@
 <#assign pageCss=["css/fragments/sidebar.css", "css/fragments/notifications.css", "css/fragments/header.css", "css/request_item.css", "css/main.css"]>
 
-<#include "/WEB-INF/templates/main/requests_list.ftl">
+<#include "/WEB-INF/templates/main/all_requests_list.ftl">
+<#include "/WEB-INF/templates/main/user_requests_list.ftl">
 <#include "/WEB-INF/templates/main/workouts_list.ftl">
 
 <#macro content>
@@ -13,7 +14,11 @@
         <#if title == "Главная">
             <@request_list />
         <#else>
-            <@workout_list />
+            <#if title == "Запросы">
+                <@my_request_list />
+             <#else>
+                <@workout_list />
+            </#if>
         </#if>
     </div>
 
