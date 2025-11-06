@@ -22,7 +22,24 @@
         <p class="description">${request.description}</p>
     </div>
 
-    <div class="approve-button">
-        <button class="approve" data-request-id="${request.id}">Откликнуться</button>
+    <div class="action-button">
+
+        <#if request.creatorId == userId>
+            <button class="delete-request" data-request-id="${request.id}"
+                    onclick="location.href='/requests/delete/${request.id}'">
+                Удалить
+            </button>
+        <#else>
+
+<#--            <#if currentUser.hasRespondedTo(request.id)>-->
+<#--                <button class="cancel-response" data-request-id="${request.id}"-->
+<#--                        onclick="location.href='/requests/cancel/${request.id}'">-->
+<#--                    Отменить отклик-->
+<#--                </button>-->
+<#--            <#else>-->
+                <button class="approve" data-request-id="${request.id}">Откликнуться</button>
+<#--            </#if>-->
+
+        </#if>
     </div>
 </div>

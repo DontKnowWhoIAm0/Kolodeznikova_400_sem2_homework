@@ -107,13 +107,7 @@ public class CreateRequestServlet extends HttpServlet {
             return;
         }
 
-        int creatorId = -1;
-        try {
-                creatorId = userService.findUserIdByLogin((String) req.getSession().getAttribute("login"));
-        } catch (SQLException e) {
-            resp.sendRedirect(req.getContextPath() + "/login");
-            return;
-        }
+        int creatorId = (Integer) req.getSession().getAttribute("userId");
 
         WorkoutRequest workoutRequest = new WorkoutRequest(
                 creatorId, List.of(), sport, description, city,

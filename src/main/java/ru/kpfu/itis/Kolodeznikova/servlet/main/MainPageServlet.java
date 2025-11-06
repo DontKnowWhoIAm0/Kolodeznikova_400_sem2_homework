@@ -46,8 +46,7 @@ public class MainPageServlet extends HttpServlet {
         req.setAttribute("contextPath", req.getContextPath());
 
         try {
-            List<WorkoutRequest> requests = workoutRequestService.getAllNotUserRequests(
-                    userService.findUserIdByLogin((String) req.getSession().getAttribute("login")));
+            List<WorkoutRequest> requests = workoutRequestService.getAllNotUserRequests((Integer) req.getSession().getAttribute("userId"));
 
             Map<String, User> creatorsMap = new HashMap<>();
             for (WorkoutRequest r : requests) {
@@ -57,6 +56,7 @@ public class MainPageServlet extends HttpServlet {
                 }
             }
 
+            req.setAttribute("userId", (Integer) req.getSession().getAttribute("userId"));
             req.setAttribute("requests", requests);
             req.setAttribute("creatorsMap", creatorsMap);
 

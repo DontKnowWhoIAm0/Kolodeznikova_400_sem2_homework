@@ -74,7 +74,11 @@ public class LoginServlet extends HttpServlet {
         // Create a new session and store the login name
         HttpSession session = req.getSession();
         session.setMaxInactiveInterval(60 * 60);
-        session.setAttribute("login", login);
+        try {
+            session.setAttribute("userId", userService.findUserIdByLogin(login));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // Redirect to main page after successful authorization
         resp.sendRedirect(req.getContextPath() + "/main");

@@ -27,4 +27,3 @@
 </#macro>
 
 <#include "/WEB-INF/templates/base.ftl">
-

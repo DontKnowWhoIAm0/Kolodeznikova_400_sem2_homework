@@ -29,9 +29,7 @@ public class RespondRequestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             int requestId = Integer.parseInt(req.getParameter("requestId"));
-
-            String login = (String) req.getSession().getAttribute("login");
-            int userId = userService.findUserIdByLogin(login);
+            int userId = (Integer) req.getSession().getAttribute("userId");
 
             WorkoutRequest request = workoutRequestService.findById(requestId);
             workoutRequestService.addRespondentToRequest(request, userId);

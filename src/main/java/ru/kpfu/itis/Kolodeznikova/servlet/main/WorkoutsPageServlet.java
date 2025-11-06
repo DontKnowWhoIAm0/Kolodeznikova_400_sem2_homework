@@ -41,8 +41,7 @@ public class WorkoutsPageServlet extends HttpServlet {
         req.setAttribute("contextPath", req.getContextPath());
 
         try {
-            String login = (String) req.getSession().getAttribute("login");
-            int userId = userService.findUserIdByLogin(login);
+            int userId = (Integer) req.getSession().getAttribute("userId");
 
             List<Workout> workouts = workoutService.getAllUserWorkouts(userId);
 
@@ -59,6 +58,7 @@ public class WorkoutsPageServlet extends HttpServlet {
                 }
             }
 
+            req.setAttribute("userId", (Integer) req.getSession().getAttribute("userId"));
             req.setAttribute("workouts", workouts);
             req.setAttribute("usersMap", usersMap);
 

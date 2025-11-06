@@ -76,7 +76,7 @@
     margin: 0;
 }
 
-.approve-button {
+.action-button {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -86,7 +86,7 @@
 
 }
 
-.approve-button button {
+.action-button button {
     background-color: #00c77b;
     color: white;
     border: none;
@@ -99,17 +99,17 @@
     align-self: flex-start;
 }
 
-.approve-button .approve:hover {
+.action-button button:hover {
     background-color: #00a86b;
 }
 
-.approve-button .approve:disabled {
+.action-button button:disabled {
     background-color: gray;
     color: white;
     cursor: default;
     pointer-events: none;
 }
 
-.approve-button .approve:disabled:hover {
+.action-button button:disabled:hover {
     background-color: gray;
 }
