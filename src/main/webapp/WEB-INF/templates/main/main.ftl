@@ -3,13 +3,14 @@
 "css/fragments/notifications.css",
 "css/fragments/header.css",
 "css/request_item.css",
+"css/request_list.css",
 "css/main.css",
 "css/fragments/delete_request_confirmation.css",
 "css/fragments/overlay.css"]>
 
-<#include "/WEB-INF/templates/main/all_requests_list.ftl">
-<#include "/WEB-INF/templates/main/user_requests_list.ftl">
-<#include "/WEB-INF/templates/main/workouts_list.ftl">
+<#include "/WEB-INF/templates/main/request_list.ftl">
+<#include "/WEB-INF/templates/main/user_request_lists.ftl">
+<#include "/WEB-INF/templates/main/workout_list.ftl">
 
 <#macro content>
 
@@ -21,12 +22,12 @@
     <div class="auth_container">
         <#if title == "Главная">
             <@request_list />
+        <#elseif title == "Запросы">
+            <@my_request_list />
+        <#elseif title == "Отклики на запрос">
+            <@respondent_list />
         <#else>
-            <#if title == "Запросы">
-                <@my_request_list />
-             <#else>
-                <@workout_list />
-            </#if>
+            <@workout_list />
         </#if>
     </div>
 

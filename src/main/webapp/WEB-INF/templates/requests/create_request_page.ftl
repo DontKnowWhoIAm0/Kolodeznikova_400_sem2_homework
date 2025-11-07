@@ -1,4 +1,4 @@
-<#assign pageCss=["css/request_form.css"]>
+<#assign pageCss=["css/request_form.css", "css/fragments/back_button.css"]>
 
 <#macro content>
     <div>

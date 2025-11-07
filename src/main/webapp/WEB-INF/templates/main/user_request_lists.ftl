@@ -1,4 +1,4 @@
-<#include "/WEB-INF/templates/main/all_requests_list.ftl">
+<#include "/WEB-INF/templates/main/request_list.ftl">
 
 <#macro my_request_list>
     <div class="requests_page">

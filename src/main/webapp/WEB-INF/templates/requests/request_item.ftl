@@ -1,4 +1,9 @@
-<div class="request_item">
+<div class="request_item"
+     data-request-id="${request.id}"
+        <#if request.creatorId == userId>
+            onclick="window.location.href='${contextPath}/requestRespondents?requestId=${request.id}'"
+        </#if>
+>
     <div class="profile_info">
         <img src="${creator.profileImageUrl}">
         <p class="nickname">${creator.nickname}</p>
