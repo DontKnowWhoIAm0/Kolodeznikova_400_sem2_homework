@@ -37,10 +37,10 @@
         <label>Фото профиля:</label>
         <input type="file" name="profile_image" accept="image/*">
 
-        <button type="submit" id="signup-button">Зарегистрироваться</button>
+        <button type="submit" id="signup_button">Зарегистрироваться</button>
     </form>
 
-    <div class="login-link">
+    <div class="login_link">
         <p>Уже есть аккаунт? <a href="login"> Войти</a></p>
     </div>
 </#macro>

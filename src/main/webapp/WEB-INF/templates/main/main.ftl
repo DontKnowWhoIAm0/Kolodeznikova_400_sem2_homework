@@ -10,7 +10,7 @@
     <#include "/WEB-INF/templates/fragments/sidebar.ftl">
     <#include "/WEB-INF/templates/fragments/notifications.ftl">
 
-    <div class="auth-container">
+    <div class="auth_container">
         <#if title == "Главная">
             <@request_list />
         <#else>

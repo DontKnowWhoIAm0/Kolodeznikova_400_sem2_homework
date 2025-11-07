@@ -1,16 +1,16 @@
 
-<div class="request-item">
-    <div class="profile-info">
+<div class="request_item">
+    <div class="profile_info">
         <img src="${creator.profileImageUrl}">
         <p class="nickname">${creator.nickname}</p>
     </div>
 
-    <div class="request-info">
+    <div class="request_info">
         <h3 class="sport">${request.sport.getName()}</h3>
 
-        <p class="city-time">
+        <p class="city_time">
             ${request.city},
-            <span class="date-range">
+            <span class="date_range">
                 <#if request.timeRelevant>
                     ${request.startDate}, ${request.startTime}—${request.endTime}
                 <#else>
@@ -22,16 +22,16 @@
         <p class="description">${request.description}</p>
     </div>
 
-    <div class="action-button">
+    <div class="action_button">
 
         <#if request.creatorId == userId>
-            <button class="delete-request"
+            <button class="delete_request"
                     onclick="location.href='/requests/delete/${request.id}'">
                 Удалить
             </button>
 
         <#elseif dto.hasResponded>
-            <button class="cancel-response"
+            <button class="cancel_response"
                     onclick="location.href='/requests/cancel/${request.id}'">
                 Отменить отклик
             </button>

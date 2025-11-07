@@ -3,7 +3,7 @@
 <#macro content>
     <div>
         <a href="javascript:history.back()"><</a>
-        <div class="request-container">
+        <div class="request_container">
             <div>
                 <h2>Запрос на тренировку</h2>
             </div>

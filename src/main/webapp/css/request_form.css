@@ -5,7 +5,7 @@ body {
     height: 100vh;
 }
 
-.request-container {
+.request_container {
     background: white;
     padding: 20px;
     border-radius: 12px;
@@ -13,7 +13,7 @@ body {
     width: 400px;
 }
 
-.request-container h2 {
+.request_container h2 {
     text-align: center;
     margin-bottom: 20px;
 }

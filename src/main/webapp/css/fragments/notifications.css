@@ -21,7 +21,7 @@
 }
 
 
-.notification-header {
+.notification_header {
     font-weight: 600;
     font-size: 18px;
     color: #000;
@@ -31,7 +31,7 @@
 }
 
 
-.notification-list {
+.notification_list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -40,19 +40,19 @@
 }
 
 
-.notification-item {
+.notification_item {
     padding: 10px 20px;
     font-size: 16px;
     color: #333;
     border-bottom: 1px solid #f0f0f0;
 }
 
-.notification-item:last-child {
+.notification_item:last-child {
     border-bottom: none;
 }
 
 
-.notification-item.empty {
+.notification_item.empty {
     color: #999;
     font-style: italic;
     text-align: center;

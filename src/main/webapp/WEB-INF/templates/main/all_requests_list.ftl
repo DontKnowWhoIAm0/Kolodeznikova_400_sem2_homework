@@ -11,5 +11,5 @@
         </#if>
     </div>
 
-    <a href="${contextPath}/createRequest" class="new-request">+</a>
+    <a href="${contextPath}/createRequest" class="new_request">+</a>
 </#macro>

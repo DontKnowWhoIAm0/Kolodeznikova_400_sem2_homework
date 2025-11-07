@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const sidebarButton = document.getElementById("sidebarButton"); // кнопка открытия
-    const sidebar = document.getElementById("sidebar");             // сам сайдбар
-    const overlay = document.getElementById("overlay");             // затемнение
+    const sidebarButton = document.getElementById("sidebar_button");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
 
     sidebarButton.addEventListener("click", () => {
         sidebar.classList.toggle("active");

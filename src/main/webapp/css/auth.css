@@ -5,7 +5,7 @@ body {
     height: 100vh;
 }
 
-.auth-container {
+.auth_container {
     background: white;
     padding: 20px;
     border-radius: 12px;
@@ -46,33 +46,33 @@ button:disabled {
     cursor: not-allowed;
 }
 
-#signup-button:disabled {
+#signup_button:disabled {
     background-color: #ccc;
     color: #666;
     cursor: not-allowed;
 }
 
-#signup-button:disabled:hover {
+#signup_button:disabled:hover {
     background-color: #ccc;
 }
 
-.auth-container .login-link {
+.auth_container .login_link {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-.auth-container .login-link a {
+.auth_container .login_link a {
     text-decoration: none;
     color: #00c77b;
     font-weight: bold;
     padding: 0;
 }
 
-.auth-container .login-link a:hover {
+.auth_container .login_link a:hover {
     color: #00a86b;
 }
 
-.auth-container .login-link p {
+.auth_container .login_link p {
     margin-bottom: 0;
 }

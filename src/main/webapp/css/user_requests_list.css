@@ -1,12 +1,11 @@
-.requests-page {
+.requests_page {
     display: flex;
     gap: 20px;
     justify-content: flex-start;
     align-items: flex-start;
 }
 
-.responded-requests,
-.my-requests {
+.responded_requests, .my_requests {
     display: flex;
     flex-direction: column;
     width: 48%;
@@ -16,8 +15,7 @@
 }
 
 
-.responded-requests h2,
-.my-requests h2 {
+.responded_requests h2, .my_requests h2 {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 15px;

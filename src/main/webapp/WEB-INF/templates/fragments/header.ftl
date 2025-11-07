@@ -1,4 +1,4 @@
 <div class="header">
-    <button class="notificationsButton" id="notificationsButton">🔔</button>
-    <button class="sidebarButton" id="sidebarButton">☰</button>
+    <button class="notifications_button" id="notifications_button">🔔</button>
+    <button class="sidebar_button" id="sidebar_button">☰</button>
 </div>

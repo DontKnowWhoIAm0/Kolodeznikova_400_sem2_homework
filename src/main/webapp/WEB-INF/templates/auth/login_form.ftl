@@ -12,7 +12,7 @@
         <button type="submit">Авторизоваться</button>
     </form>
 
-    <div class="login-link">
+    <div class="login_link">
         <p>Нет аккаунта? <a href="signup">Зарегистрироваться</a></p>
     </div>
 </#macro>

@@ -5,7 +5,7 @@
 
 <#macro content>
 
-    <div class="auth-container">
+    <div class="auth_container">
         <#if title == "Регистрация">
             <@signupForm />
         <#else>

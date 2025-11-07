@@ -1,4 +1,4 @@
-.new-request {
+.new_request {
     position: fixed;
     bottom: 30px;
     right: 30px;
@@ -21,7 +21,7 @@
     transition: 0.2s ease;
 }
 
-.new-request:hover {
+.new_request:hover {
     background-color: #E67D00;
     transform: scale(1.08);
 }
