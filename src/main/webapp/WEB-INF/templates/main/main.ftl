@@ -1,4 +1,10 @@
-<#assign pageCss=["css/fragments/sidebar.css", "css/user_requests_list.css", "css/fragments/notifications.css", "css/fragments/header.css", "css/request_item.css", "css/main.css"]>
+<#assign pageCss=["css/fragments/sidebar.css",
+"css/user_requests_list.css",
+"css/fragments/notifications.css",
+"css/fragments/header.css",
+"css/request_item.css",
+"css/main.css",
+"css/fragments/delete_request_confirmation.css"]>
 
 <#include "/WEB-INF/templates/main/all_requests_list.ftl">
 <#include "/WEB-INF/templates/main/user_requests_list.ftl">
@@ -9,6 +15,7 @@
     <#include "/WEB-INF/templates/fragments/header.ftl">
     <#include "/WEB-INF/templates/fragments/sidebar.ftl">
     <#include "/WEB-INF/templates/fragments/notifications.ftl">
+    <#include "/WEB-INF/templates/fragments/delete_request_confirmation.ftl">
 
     <div class="auth_container">
         <#if title == "Главная">
@@ -27,7 +34,7 @@
     </script>
     <script src="${contextPath}/js/fragments/sidebar.js"></script>
     <script src="${contextPath}/js/fragments/notifications.js"></script>
-    <script src="${contextPath}/js/processingApproveButton.js"></script>
+    <script src="${contextPath}/js/processingRequestButtons.js"></script>
 
 </#macro>
 

@@ -1,4 +1,3 @@
-
 <div class="request_item">
     <div class="profile_info">
         <img src="${creator.profileImageUrl}">
@@ -25,14 +24,12 @@
     <div class="action_button">
 
         <#if request.creatorId == userId>
-            <button class="delete_request"
-                    onclick="location.href='/requests/delete/${request.id}'">
+            <button class="delete_request" data-request-id="${request.id}">
                 Удалить
             </button>
 
         <#elseif dto.hasResponded>
-            <button class="cancel_response"
-                    onclick="location.href='/requests/cancel/${request.id}'">
+            <button class="cancel_response" data-request-id="${request.id}">
                 Отменить отклик
             </button>
 
