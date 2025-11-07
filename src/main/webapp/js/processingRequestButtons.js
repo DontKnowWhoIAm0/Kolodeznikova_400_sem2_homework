@@ -46,6 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
             confirm.style.display = "flex";
             e.preventDefault();
         }
+
+        const request = e.target.closest('.request_item');
+        if (request && request.closest('.my_requests') && !e.target.closest('.delete_request')) {
+            const request_item = e.target.closest('.request_item');
+            if (!request_item) return;
+            if (!request_item.closest('.my_requests')) return;
+            const requestId = request_item.dataset.requestId;
+            window.location.href = `${contextPath}/requestRespondents?requestId=${requestId}`;
+        }
+
     });
 
     confirmYes.addEventListener('click', () => {
