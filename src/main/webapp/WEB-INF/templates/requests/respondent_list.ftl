@@ -1,22 +1,23 @@
-<#assign pageCss=["css/request_item.css", "css/fragments/back_button.css"]>
+<#assign pageCss=["css/request_item.css", "css/respondent_list.css", "css/fragments/back_button.css"]>
 
 <#macro content>
     <a href="javascript:history.back()"><</a>
+    <div class="page_layout">
+        <div class="request">
+            <#assign request=request>
+            <#assign creator=creator>
+            <#include "request_item.ftl">
+        </div>
 
-    <div class="request">
-        <#assign request=request>
-        <#assign creator=creator>
-        <#include "request_item.ftl">
-    </div>
-
-    <div class="respondent_list">
-        <#if respondents?has_content>
-            <#list respondents as respondent>
-                <#include "respondent_item.ftl">
-            </#list>
-        <#else>
-            <p>Пока что никто не откликнулся.</p>
-        </#if>
+        <div class="respondent_list">
+            <#if respondents?has_content>
+                <#list respondents as respondent>
+                    <#include "respondent_item.ftl">
+                </#list>
+            <#else>
+                <p class="no_respondents">Пока что никто не откликнулся.</p>
+            </#if>
+        </div>
     </div>
 
     <script>

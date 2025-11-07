@@ -1,9 +1,7 @@
-<div class="responded_item"
-     data-respondent-id="${respondent.id}"
-     data-request-id="${request.id}"
->
+<div class="responded_item" data-respondent-id="${respondent.id}" data-request-id="${request.id}">
     <div class="profile_info">
-        <img src="${respondent.profileImageUrl}" alt="${respondent.nickname}" class="profile_image">
+        <img src="${respondent.profileImageUrl!'/images/default_profile.jpg'}"
+             alt="${respondent.nickname}" class="profile_image">
         <div class="name_nickname">
             <p class="nickname">${respondent.nickname}</p>
             <p class="full_name">${respondent.name} ${respondent.lastname}</p>

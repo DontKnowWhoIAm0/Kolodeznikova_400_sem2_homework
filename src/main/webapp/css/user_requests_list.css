@@ -15,9 +15,15 @@
 }
 
 
-.responded_requests h2, .my_requests h2 {
+.responded_requests h2,
+.my_requests h2 {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 15px;
     text-align: center;
+
+    color: #FF8C00;
+    border-bottom: 2px solid #FF8C00;
+    padding-bottom: 5px;
+    letter-spacing: 0.5px;
 }

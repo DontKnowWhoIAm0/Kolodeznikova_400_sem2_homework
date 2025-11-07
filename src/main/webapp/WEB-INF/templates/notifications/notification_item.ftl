@@ -5,7 +5,7 @@
         <p class="notification_date">
             <#if notification.createdDate??>
                 <#assign createdDate = notification.createdDate?date("yyyy-MM-dd")>
-                ${notification.createdDate?string("d MMM y 'г.'")}
+                ${createdDate?string("d MMM y 'г.'")}
             </#if>
         </p>
     </div>

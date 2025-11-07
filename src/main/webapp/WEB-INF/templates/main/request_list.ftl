@@ -7,7 +7,7 @@
                 <#include "../requests/request_item.ftl">
             </#list>
         <#else>
-            <p>Активных запросов нет.</p>
+            <p class="no_requests">Активных запросов нет.</p>
         </#if>
     </div>
 
