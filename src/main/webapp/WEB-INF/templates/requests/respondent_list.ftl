@@ -9,15 +9,15 @@
         <#include "request_item.ftl">
     </div>
 
-        <div class="respondent_list">
-            <#if respondents?has_content>
-                <#list respondents as respondent>
-                    <#include "respondent_item.ftl">
-                </#list>
-            <#else>
-                <p>Пока что никто не откликнулся.</p>
-            </#if>
-        </div>
+    <div class="respondent_list">
+        <#if respondents?has_content>
+            <#list respondents as respondent>
+                <#include "respondent_item.ftl">
+            </#list>
+        <#else>
+            <p>Пока что никто не откликнулся.</p>
+        </#if>
+    </div>
 
     <script>
         const contextPath = "${contextPath}";

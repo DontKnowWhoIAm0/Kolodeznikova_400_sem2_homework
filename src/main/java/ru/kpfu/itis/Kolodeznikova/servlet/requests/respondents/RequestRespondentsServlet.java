@@ -1,4 +1,4 @@
-package ru.kpfu.itis.Kolodeznikova.servlet.requests;
+package ru.kpfu.itis.Kolodeznikova.servlet.requests.respondents;
 
 import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 import ru.kpfu.itis.Kolodeznikova.entity.core.WorkoutRequest;
