@@ -2,7 +2,6 @@
     <div class="workout_list">
         <#if workouts?has_content>
             <#list workouts as workout>
-                <#assign user = usersMap[request.creatorId?string]!>
                 <#include "../workouts/workout_item.ftl">
             </#list>
         <#else>

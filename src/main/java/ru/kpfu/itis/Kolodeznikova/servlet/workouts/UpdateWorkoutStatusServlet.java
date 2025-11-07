@@ -1,10 +1,8 @@
-package ru.kpfu.itis.Kolodeznikova.servlet.requests.respondents;
+package ru.kpfu.itis.Kolodeznikova.servlet.workouts;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.kpfu.itis.Kolodeznikova.entity.core.Workout;
-import ru.kpfu.itis.Kolodeznikova.entity.core.WorkoutRequest;
 import ru.kpfu.itis.Kolodeznikova.entity.enums.WorkoutStatus;
-import ru.kpfu.itis.Kolodeznikova.service.WorkoutRequestService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutService;
 
 import javax.servlet.ServletConfig;
@@ -13,18 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Map;
 
-@WebServlet(name = "Confirm Respondent", urlPatterns = "/confirmRespondent")
-public class ConfirmRespondentServlet extends HttpServlet {
+@WebServlet(name = "UpdateWorkoutStatusServlet", urlPatterns = "/updateWorkoutStatus")
+public class UpdateWorkoutStatusServlet extends HttpServlet {
 
-    private WorkoutRequestService workoutRequestService;
     private WorkoutService workoutService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void init(ServletConfig config) {
-        workoutRequestService = (WorkoutRequestService) config.getServletContext().getAttribute("workoutRequestService");
         workoutService = (WorkoutService) config.getServletContext().getAttribute("workoutService");
     }
 
@@ -34,28 +31,31 @@ public class ConfirmRespondentServlet extends HttpServlet {
 
         try {
             Map<String, Object> body = objectMapper.readValue(req.getInputStream(), Map.class);
-            int requestId = Integer.parseInt(body.get("requestId").toString());
-            int respondentId = Integer.parseInt(body.get("respondentId").toString());
+            int workoutId = Integer.parseInt(body.get("workoutId").toString());
+            String statusStr = body.get("status").toString();
 
-            WorkoutRequest request = workoutRequestService.findById(requestId);
-            if (request == null) {
+            Workout workout = workoutService.findById(workoutId);
+            if (workout == null) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
 
-            Workout workout = new Workout(
-                    request.getCreatorId(),
-                    respondentId,
-                    request.getSport(),
-                    request.getCity(),
-                    WorkoutStatus.PENDING
-            );
-            workoutService.createWorkout(workout);
-
-            for (Integer id : request.getRespondentsId()) {
-                workoutRequestService.deleteRespondentFromRequest(request, id);
+            WorkoutStatus status;
+            try {
+                status = WorkoutStatus.valueOf(statusStr);
+            } catch (IllegalArgumentException e) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
             }
-            workoutRequestService.deleteWorkoutRequest(request);
+
+            workout.setStatus(status);
+            if (status == WorkoutStatus.CANCELED || status == WorkoutStatus.COMPLETED) {
+                workout.setCompletedDate(LocalDate.now());
+            } else {
+                workout.setCompletedDate(null);
+            }
+
+            workoutService.updateWorkout(workout);
 
             resp.setStatus(HttpServletResponse.SC_OK);
 

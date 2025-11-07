@@ -37,6 +37,7 @@
     <script src="${contextPath}/js/fragments/sidebar.js"></script>
     <script src="${contextPath}/js/fragments/notifications.js"></script>
     <script src="${contextPath}/js/processingRequestButtons.js"></script>
+    <script src="${contextPath}/js/processingWorkoutButtons.js"></script>
 
 </#macro>
 

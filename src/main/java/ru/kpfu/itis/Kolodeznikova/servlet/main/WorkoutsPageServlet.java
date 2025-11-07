@@ -42,23 +42,22 @@ public class WorkoutsPageServlet extends HttpServlet {
 
         try {
             int userId = (Integer) req.getSession().getAttribute("userId");
-
             List<Workout> workouts = workoutService.getAllUserWorkouts(userId);
 
-            Map<Integer, User> usersMap = new HashMap<>();
+            Map<String, User> usersMap = new HashMap<>();
             for (Workout workout : workouts) {
                 int creatorId = workout.getCreatorId();
                 int participantId = workout.getParticipantId();
 
                 if (!usersMap.containsKey(creatorId)) {
-                    usersMap.put(creatorId, userService.findUserById(creatorId));
+                    usersMap.put(String.valueOf(creatorId), userService.findUserById(creatorId));
                 }
-                if (!usersMap.containsKey(participantId)) {
-                    usersMap.put(participantId, userService.findUserById(participantId));
+                if (participantId != 0 && !usersMap.containsKey(participantId)) {
+                    usersMap.put(String.valueOf(participantId), userService.findUserById(participantId));
                 }
             }
 
-            req.setAttribute("userId", (Integer) req.getSession().getAttribute("userId"));
+            req.setAttribute("userId", userId);
             req.setAttribute("workouts", workouts);
             req.setAttribute("usersMap", usersMap);
 

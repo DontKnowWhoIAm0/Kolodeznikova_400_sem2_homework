@@ -89,4 +89,12 @@ public class Workout {
     public LocalDate getCompletedDate() {
         return completedDate;
     }
+
+    public void setStatus(WorkoutStatus status) {
+        this.status = status;
+    }
+
+    public void setCompletedDate(LocalDate completedDate) {
+        this.completedDate = completedDate;
+    }
 }
