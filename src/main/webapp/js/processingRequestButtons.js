@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let deleteRequestId = null;
 
-    const confirmOverlay = document.getElementById('delete_confirm');
+    const overlay = document.getElementById('overlay');
+    const confirm = document.getElementById('confirm_box');
     const confirmYes = document.getElementById('confirm_delete_yes');
     const confirmNo = document.getElementById('confirm_delete_no');
 
@@ -41,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('delete_request')) {
             const requestId = e.target.dataset.requestId;
             deleteRequestId = requestId;
-            confirmOverlay.style.display = "flex";
+            overlay.classList.add('active');
+            confirm.style.display = "flex";
             e.preventDefault();
         }
     });
@@ -60,7 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const requestItem = btn.closest('.request_item');
                 if (requestItem) requestItem.remove();
 
-                confirmOverlay.style.display = "none";
+                confirm.style.display = "none";
+                overlay.classList.remove('active');
                 deleteRequestId = null;
             } else {
                 alert('Ошибка удаления');
@@ -69,7 +72,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     confirmNo.addEventListener('click', () => {
-        confirmOverlay.style.display = "none";
+        confirm.style.display = "none";
+        overlay.classList.remove('active');
+        deleteRequestId = null;
+    });
+
+    overlay.addEventListener('click', () => {
+        confirm.style.display = "none";
+        overlay.classList.remove('active');
         deleteRequestId = null;
     });
 

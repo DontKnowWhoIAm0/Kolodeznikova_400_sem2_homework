@@ -1,4 +1,5 @@
-<div id="overlay"></div>
+<#include "/WEB-INF/templates/fragments/overlay.ftl">
+
 <div class="sidebar" id="sidebar">
     <div class="menu">
         <a href="${contextPath}/main" class="main_page">Главная</a> <br>

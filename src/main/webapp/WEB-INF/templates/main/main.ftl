@@ -4,7 +4,8 @@
 "css/fragments/header.css",
 "css/request_item.css",
 "css/main.css",
-"css/fragments/delete_request_confirmation.css"]>
+"css/fragments/delete_request_confirmation.css",
+"css/fragments/overlay.css"]>
 
 <#include "/WEB-INF/templates/main/all_requests_list.ftl">
 <#include "/WEB-INF/templates/main/user_requests_list.ftl">

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     sidebarButton.addEventListener("click", () => {
         sidebar.classList.toggle("active");
-        overlay.classList.toggle("active");
+        overlay.classList.add("active");
     });
 
     overlay.addEventListener("click", () => {
