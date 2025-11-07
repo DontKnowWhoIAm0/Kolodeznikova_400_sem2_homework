@@ -15,7 +15,7 @@ import java.io.IOException;
  * A servlet filter that provides authentication control.
  * Checks if a user session exists and redirects unauthorized users to the login page.
  */
-@WebFilter(urlPatterns = {"/profile/*", "/main/*", "/createRequest", "/workouts", "/requests", "/requestRespondents"}, filterName = "Authentication")
+@WebFilter(urlPatterns = {"/profile/*", "/main/*", "/createRequest", "/workouts", "/requests", "/requestRespondents", "/deleteRespondent"}, filterName = "Authentication")
 public class AuthenticationFilter implements Filter {
 
     /**

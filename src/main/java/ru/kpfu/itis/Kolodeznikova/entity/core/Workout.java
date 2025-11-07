@@ -42,7 +42,7 @@ public class Workout {
         this.completedDate = completedDate;
     }
 
-    /** Constructor without ID for creating new workouts before saving to DB. */
+    /** Constructor without ID for creating workout entity. */
     public Workout(int creatorId, int participantId, Sports sport, String city, WorkoutStatus status, LocalDate completedDate) {
         this.creatorId = creatorId;
         this.participantId = participantId;
@@ -50,6 +50,16 @@ public class Workout {
         this.city = city;
         this.status = status;
         this.completedDate = completedDate;
+    }
+
+    /** Constructor without ID for creating new workouts before saving to DB. */
+    public Workout(int creatorId, int participantId, Sports sport, String city, WorkoutStatus status) {
+        this.creatorId = creatorId;
+        this.participantId = participantId;
+        this.sport = sport;
+        this.city = city;
+        this.status = status;
+        this.completedDate = null;
     }
 
     public int getId() {

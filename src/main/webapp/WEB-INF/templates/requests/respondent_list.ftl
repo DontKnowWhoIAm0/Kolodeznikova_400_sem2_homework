@@ -19,6 +19,11 @@
             </#if>
         </div>
 
+    <script>
+        const contextPath = "${contextPath}";
+    </script>
+    <script src="${contextPath}/js/processingRespondentButtons.js"></script>
+
 </#macro>
 
 <#include "/WEB-INF/templates/base.ftl">
