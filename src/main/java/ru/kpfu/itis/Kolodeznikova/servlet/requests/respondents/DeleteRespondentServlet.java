@@ -36,7 +36,7 @@ public class DeleteRespondentServlet extends HttpServlet {
             WorkoutRequest request = workoutRequestService.findById(requestId);
 
             if (request != null) {
-                workoutRequestService.deleteRespondentFromRequest(request, respondentId);
+                workoutRequestService.deleteRespondentFromRequest(request, respondentId, false);
                 resp.setStatus(HttpServletResponse.SC_OK);
             } else {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);

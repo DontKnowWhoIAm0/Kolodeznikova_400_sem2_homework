@@ -116,11 +116,13 @@ public class SignUpServlet extends HttpServlet {
         String profileImageUrl = null;
 
         Part part = req.getPart("profile_image");
-        try (InputStream is = part.getInputStream()) {
-            byte[] imageBytes = new byte[is.available()];
-            int bytesRead = is.read(imageBytes);
-            Map uploadResult = cloudUtil.getInstance().uploader().upload(imageBytes, ObjectUtils.emptyMap());
-            profileImageUrl = (String) uploadResult.get("secure_url");
+        if (part != null && part.getSize() > 0) {
+            try (InputStream is = part.getInputStream()) {
+                byte[] imageBytes = new byte[is.available()];
+                int bytesRead = is.read(imageBytes);
+                Map uploadResult = cloudUtil.getInstance().uploader().upload(imageBytes, ObjectUtils.emptyMap());
+                profileImageUrl = (String) uploadResult.get("secure_url");
+            }
         }
 
 

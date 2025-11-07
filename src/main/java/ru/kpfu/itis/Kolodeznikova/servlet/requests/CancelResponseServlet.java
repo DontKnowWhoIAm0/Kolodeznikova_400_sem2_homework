@@ -30,7 +30,7 @@ public class CancelResponseServlet extends HttpServlet {
 
             WorkoutRequest request = workoutRequestService.findById(requestId);
 
-            workoutRequestService.deleteRespondentFromRequest(request, userId);
+            workoutRequestService.deleteRespondentFromRequest(request, userId, true);
 
             resp.setStatus(HttpServletResponse.SC_OK);
 

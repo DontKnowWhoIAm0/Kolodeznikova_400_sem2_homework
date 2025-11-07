@@ -35,7 +35,7 @@ public class DeleteRequestServlet extends HttpServlet {
                 return;
             }
 
-            workoutRequestService.deleteWorkoutRequest(request);
+            workoutRequestService.deleteWorkoutRequest(request, true);
 
             resp.setStatus(HttpServletResponse.SC_OK);
 

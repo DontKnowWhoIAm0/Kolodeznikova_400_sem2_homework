@@ -50,12 +50,12 @@ public class ConfirmRespondentServlet extends HttpServlet {
                     request.getCity(),
                     WorkoutStatus.PENDING
             );
-            workoutService.createWorkout(workout);
+            workoutService.createWorkout(workout, request);
 
             for (Integer id : request.getRespondentsId()) {
-                workoutRequestService.deleteRespondentFromRequest(request, id);
+                workoutRequestService.deleteRespondentFromRequest(request, id, false);
             }
-            workoutRequestService.deleteWorkoutRequest(request);
+            workoutRequestService.deleteWorkoutRequest(request, false);
 
             resp.setStatus(HttpServletResponse.SC_OK);
 

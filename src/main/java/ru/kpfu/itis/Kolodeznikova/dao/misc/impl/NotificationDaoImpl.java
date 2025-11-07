@@ -14,7 +14,9 @@ import java.util.List;
  */
 public class NotificationDaoImpl implements NotificationDao {
 
-    /** SQL query to create the "notifications" table if it does not exist. */
+    /**
+     * SQL query to create the "notifications" table if it does not exist.
+     */
     private static final String CREATE_NOTIFICATIONS_TABLE_QUERY = """
             CREATE TABLE IF NOT EXISTS sb_db.notifications (
                 id BIGSERIAL PRIMARY KEY,
@@ -24,7 +26,9 @@ public class NotificationDaoImpl implements NotificationDao {
             );
             """;
 
-    /** SQL query to create the "recipients" table if it does not exist to link notifications and recipients. */
+    /**
+     * SQL query to create the "recipients" table if it does not exist to link notifications and recipients.
+     */
     private static final String CREATE_RECIPIENTS_TABLE_QUERY = """
             CREATE TABLE IF NOT EXISTS sb_db.recipients (
                 notification_id BIGINT REFERENCES sb_db.notifications(id) ON DELETE CASCADE,
@@ -33,27 +37,35 @@ public class NotificationDaoImpl implements NotificationDao {
             );
             """;
 
-    /** SQL query to add a new notification and return its generated ID. */
+    /**
+     * SQL query to add a new notification and return its generated ID.
+     */
     private static final String ADD_NOTIFICATION_QUERY = """
             INSERT INTO sb_db.notifications (sender_id, text) VALUES (?, ?)
             RETURNING id;
             """;
 
-    /** SQL query to add a recipient to a notification. */
+    /**
+     * SQL query to add a recipient to a notification.
+     */
     private static final String ADD_RECIPIENT_QUERY = """
             INSERT INTO sb_db.recipients (notification_id, recipient_id) VALUES (?, ?);
             """;
 
-    /** SQL query to get a notification by its ID. */
+    /**
+     * SQL query to get a notification by its ID.
+     */
     private static final String GET_NOTIFICATION_BY_ID_QUERY = """
             SELECT * FROM sb_db.notifications WHERE id = ?;
             """;
 
-    /** SQL query to get all notification IDs for a recipient by their ID. */
+    /**
+     * SQL query to get all notification IDs for a recipient by their ID.
+     */
     private static final String GET_NOTIFICATIONS_BY_RECIPIENT_ID_QUERY = """
-            SELECT notification_id
-            FROM sb_db.recipients
-            WHERE recipient_id = ?;
+            SELECT n.id, n.sender_id, n.text, n.created_date
+            FROM sb_db.notifications n JOIN sb_db.recipients r ON n.id = r.notification_id
+            WHERE r.recipient_id = ?;
             """;
 
     private final ConnectionPool connectionPool;

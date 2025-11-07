@@ -59,9 +59,9 @@ public class InitListener implements ServletContextListener {
             NotificationDao notificationDao = new NotificationDaoImpl(pool);
 
             UserService userService = new UserServiceImpl(userDao);
-            WorkoutRequestService workoutRequestService = new WorkoutRequestServiceImpl(workoutRequestDao, userService);
-            WorkoutService workoutService = new WorkoutServiceImpl(workoutDao);
             NotificationService notificationService = new NotificationServiceImpl(notificationDao, userService);
+            WorkoutService workoutService = new WorkoutServiceImpl(workoutDao, userService, notificationService);
+            WorkoutRequestService workoutRequestService = new WorkoutRequestServiceImpl(workoutRequestDao, userService, notificationService);
 
             sce.getServletContext().setAttribute("userDao", userDao);
             sce.getServletContext().setAttribute("userService", userService);

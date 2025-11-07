@@ -12,9 +12,9 @@ import java.util.List;
 public interface WorkoutRequestService {
     WorkoutRequest findById(int workoutRequestId) throws SQLException;
     void createWorkoutRequest(WorkoutRequest workoutRequest) throws SQLException;
-    void deleteWorkoutRequest(WorkoutRequest workoutRequest) throws SQLException;
+    void deleteWorkoutRequest(WorkoutRequest workoutRequest, boolean flag) throws SQLException;
     void addRespondentToRequest(WorkoutRequest workoutRequest, int respondentId) throws SQLException;
-    void deleteRespondentFromRequest(WorkoutRequest workoutRequest, int respondentId) throws SQLException;
+    void deleteRespondentFromRequest(WorkoutRequest workoutRequest, int respondentId, boolean flag) throws SQLException;
     List<WorkoutRequest> getAllNotUserRequests(int userId) throws SQLException;
     List<WorkoutRequestDto> getAllNotUserRequestsDto(int userId) throws SQLException;
     List<WorkoutRequestDto> getUserRequestsDto(int userId) throws SQLException;
