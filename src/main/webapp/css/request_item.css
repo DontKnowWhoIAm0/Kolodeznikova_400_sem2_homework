@@ -120,3 +120,12 @@
 .action_button button:disabled:hover {
     background-color: gray;
 }
+
+.profile_info_link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+.profile_info_link:hover {
+    cursor: pointer;
+}

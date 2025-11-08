@@ -13,6 +13,12 @@
                 <p class="fio">${user.name} ${user.lastname}</p>
                 <p class="gender">${user.gender?if_exists}</p>
             </div>
+
+            <#if user.id==userId>
+                <form action="${contextPath}/logout" method="post" class="logout_form">
+                    <button type="submit" class="logout_button">Выйти</button>
+                </form>
+            </#if>
         </div>
 
         <div class="user_workouts">

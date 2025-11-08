@@ -9,11 +9,27 @@
 }
 
 .request {
-    flex: 0 0 600px;
     display: flex;
+    flex: 0 0 600px;
     flex-direction: column;
-    align-items: center;
+    border: 1px solid #00c77b;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 20px 60px 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+    margin: 12px auto;
     align-self: center;
+}
+
+.request:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .respondent_list {

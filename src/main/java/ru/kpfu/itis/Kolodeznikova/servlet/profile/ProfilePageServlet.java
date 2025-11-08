@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Servlet that handles user profile page.
  */
-@WebServlet(name = "Profile Page    ", urlPatterns = "/profile")
+@WebServlet(name = "Profile Page", urlPatterns = "/profile")
 public class ProfilePageServlet extends HttpServlet {
 
     private UserService userService;
@@ -51,9 +51,12 @@ public class ProfilePageServlet extends HttpServlet {
             return;
         }
 
+        String idParam = req.getParameter("id");
+        int profileUserId = (idParam != null) ? Integer.parseInt(idParam) : userId;
+
         try {
-            User user = userService.findUserById(userId);
-            List<Workout> workouts = workoutService.getAllUserWorkouts(userId);
+            User user = userService.findUserById(profileUserId);
+            List<Workout> workouts = workoutService.getAllUserWorkouts(profileUserId);
 
             Map<String, User> usersMap = new HashMap<>();
             for (Workout workout : workouts) {

@@ -1,11 +1,13 @@
 <div class="request_item"
      data-request-id="${request.id}"
 >
-    <div class="profile_info">
-        <img src="${creator.profileImageUrl!'/images/default_profile.jpg'}"
-             alt="${creator.nickname}" class="profile_image">
-        <p class="nickname">${creator.nickname}</p>
-    </div>
+    <a href="${contextPath}/profile?id=${creator.id}" class="profile_info_link">
+        <div class="profile_info">
+            <img src="${creator.profileImageUrl!'/images/default_profile.jpg'}"
+                 alt="${creator.nickname}" class="profile_image">
+            <p class="nickname">${creator.nickname}</p>
+        </div>
+    </a>
 
     <div class="request_info">
         <h3 class="sport">${request.sport.getName()}</h3>

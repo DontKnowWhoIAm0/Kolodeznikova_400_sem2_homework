@@ -4,9 +4,20 @@
     <a href="javascript:history.back()"><</a>
     <div class="page_layout">
         <div class="request">
-            <#assign request=request>
-            <#assign creator=creator>
-            <#include "request_item.ftl">
+            <h3 class="sport">${request.sport.getName()}</h3>
+
+            <p class="city_time">
+                ${request.city},
+                <span class="date_range">
+                <#if request.timeRelevant>
+                    ${request.startDate}, ${request.startTime}—${request.endTime}
+                <#else>
+                    ${request.startDate}—${request.endDate}
+                </#if>
+            </span>
+            </p>
+
+            <p class="description">${request.description}</p>
         </div>
 
         <div class="respondent_list">

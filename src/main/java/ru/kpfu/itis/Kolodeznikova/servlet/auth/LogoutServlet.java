@@ -29,4 +29,8 @@ public class LogoutServlet extends HttpServlet {
         // Redirect to the login page after logout
         resp.sendRedirect(req.getContextPath() + "/login");
     }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
 }
