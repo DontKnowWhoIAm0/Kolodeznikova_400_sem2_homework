@@ -49,7 +49,7 @@ public class WorkoutDaoImpl implements WorkoutDao {
     /** SQL query to get all workouts related to a user (as creator or participant). */
     private static final String GET_ALL_USER_WORKOUTS_QUERY = """
             SELECT * FROM sb_db.workouts
-            WHERE creator_id = ? OR participant_id = ?;
+            WHERE creator_id = ? OR participant_id = ?
             """;
 
     /** SQL query to get all pending workouts where the user is the creator. */

@@ -11,6 +11,7 @@ import ru.kpfu.itis.Kolodeznikova.util.NotificationMessageBuilder;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,7 +82,7 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
     @Override
     public void deleteRespondentFromRequest(WorkoutRequest workoutRequest, int respondentId, boolean flag) throws SQLException {
         workoutRequestDao.deleteRespondentFromRequest(workoutRequest, respondentId);
-        String nickname = userService.findUserById(respondentId).getNickname();
+        String nickname = userService.findUserById(workoutRequest.getCreatorId()).getNickname();
         String notificationText = "";
         if (flag) {
             notificationText = NotificationMessageBuilder.buildCancelResponseNotification(nickname, workoutRequest);
@@ -90,7 +91,7 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
         }
         List<Integer> recipientIds = new ArrayList<>();
         recipientIds.add(respondentId);
-        notificationService.addNotification(workoutRequest.getCreatorId(), notificationText, recipientIds);
+        notificationService.addNotification(respondentId, notificationText, recipientIds);
     }
 
     /**
@@ -106,11 +107,12 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
         List<WorkoutRequest> requests = workoutRequestDao.getAllNotUserRequests(userId);
 
         return requests.stream()
+                .sorted(Comparator.comparing(WorkoutRequest::getStartDate))
                 .map(req -> {
                     try {
                         User creator = userService.findUserById(req.getCreatorId());
                         boolean hasResponded = req.getRespondentsId() != null && req.getRespondentsId().contains(userId);
-                        return new WorkoutRequestDto(req, creator, hasResponded);
+                        return new WorkoutRequestDto(req, creator, req.getStartDate(), hasResponded);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -123,9 +125,10 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
         List<WorkoutRequest> myRequests = workoutRequestDao.getAllUserRequests(userId);
 
         return myRequests.stream()
+                .sorted(Comparator.comparing(WorkoutRequest::getStartDate))
                 .map(req -> {
                     try {
-                        return new WorkoutRequestDto(req, userService.findUserById(userId), false);
+                        return new WorkoutRequestDto(req, userService.findUserById(userId), req.getStartDate(), false);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
@@ -138,11 +141,13 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
         List<WorkoutRequest> requests = workoutRequestDao.getAllForeignRequests(userId);
 
         return requests.stream()
+                .sorted(Comparator.comparing(WorkoutRequest::getStartDate))
                 .map(req -> {
                     try {
                         return new WorkoutRequestDto(
                                 req,
                                 userService.findUserById(req.getCreatorId()),
+                                req.getStartDate(),
                                 req.getRespondentsId().contains(userId)
                         );
                     } catch (SQLException e) {

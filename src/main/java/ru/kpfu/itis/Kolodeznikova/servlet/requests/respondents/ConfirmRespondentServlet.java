@@ -53,7 +53,7 @@ public class ConfirmRespondentServlet extends HttpServlet {
             workoutService.createWorkout(workout, request);
 
             for (Integer id : request.getRespondentsId()) {
-                if (id != workout.getId()) {
+                if (id != workout.getParticipantId()) {
                     workoutRequestService.deleteRespondentFromRequest(request, id, false);
                 }
             }
