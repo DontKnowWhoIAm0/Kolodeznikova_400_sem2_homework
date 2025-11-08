@@ -1,10 +1,8 @@
-package ru.kpfu.itis.Kolodeznikova.servlet.main;
+package ru.kpfu.itis.Kolodeznikova.servlet.profile;
 
 import ru.kpfu.itis.Kolodeznikova.entity.core.User;
 import ru.kpfu.itis.Kolodeznikova.entity.core.Workout;
-import ru.kpfu.itis.Kolodeznikova.entity.core.WorkoutRequest;
 import ru.kpfu.itis.Kolodeznikova.service.UserService;
-import ru.kpfu.itis.Kolodeznikova.service.WorkoutRequestService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutService;
 
 import javax.servlet.ServletConfig;
@@ -20,28 +18,41 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Servlet that handles the page displaying all user's workouts.
+ * Servlet that handles user profile page.
  */
-@WebServlet(name="Workouts", urlPatterns = "/workouts")
-public class WorkoutsPageServlet extends HttpServlet {
+@WebServlet(name = "Profile Page    ", urlPatterns = "/profile")
+public class ProfilePageServlet extends HttpServlet {
 
-    private WorkoutService workoutService;
     private UserService userService;
+    private WorkoutService workoutService;
 
+    /**
+     * Initializes the servlet and gets the UserService and WorkoutService instances from the servlet context.
+     */
     @Override
     public void init(ServletConfig config) throws ServletException {
-        this.workoutService = (WorkoutService) config.getServletContext().getAttribute("workoutService");
         this.userService = (UserService) config.getServletContext().getAttribute("userService");
+        this.workoutService = (WorkoutService) config.getServletContext().getAttribute("workoutService");
     }
 
+    /**
+     * Handles GET requests for the profile page.
+     * Retrieves user information and their workouts, then forwards to profile_page.ftl.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setAttribute("title", "Тренировки");
+        req.setAttribute("title", "Профиль");
         req.setAttribute("contextPath", req.getContextPath());
 
+        Integer userId = (Integer) req.getSession().getAttribute("userId");
+        if (userId == null) {
+            resp.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
+
         try {
-            int userId = (Integer) req.getSession().getAttribute("userId");
+            User user = userService.findUserById(userId);
             List<Workout> workouts = workoutService.getAllUserWorkouts(userId);
 
             Map<String, User> usersMap = new HashMap<>();
@@ -57,8 +68,8 @@ public class WorkoutsPageServlet extends HttpServlet {
                 }
             }
 
+            req.setAttribute("user", user);
             req.setAttribute("userId", userId);
-            req.setAttribute("user", userService.findUserById(userId));
             req.setAttribute("workouts", workouts);
             req.setAttribute("usersMap", usersMap);
 
@@ -68,5 +79,4 @@ public class WorkoutsPageServlet extends HttpServlet {
 
         req.getRequestDispatcher("/WEB-INF/templates/main/main.ftl").forward(req, resp);
     }
-
 }

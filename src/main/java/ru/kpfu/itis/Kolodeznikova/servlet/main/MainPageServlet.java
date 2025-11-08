@@ -63,6 +63,7 @@ public class MainPageServlet extends HttpServlet {
             }
 
             req.setAttribute("userId", userId);
+            req.setAttribute("user", userService.findUserById(userId));
             req.setAttribute("requests", notResponded);
             req.setAttribute("creatorsMap", creatorsMap);
 

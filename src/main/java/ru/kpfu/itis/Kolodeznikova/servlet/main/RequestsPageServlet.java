@@ -1,6 +1,7 @@
 package ru.kpfu.itis.Kolodeznikova.servlet.main;
 
 import ru.kpfu.itis.Kolodeznikova.dto.WorkoutRequestDto;
+import ru.kpfu.itis.Kolodeznikova.service.UserService;
 import ru.kpfu.itis.Kolodeznikova.service.WorkoutRequestService;
 
 import javax.servlet.ServletConfig;
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 public class RequestsPageServlet extends HttpServlet {
 
     private WorkoutRequestService workoutRequestService;
+    private UserService userService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.workoutRequestService = (WorkoutRequestService) config.getServletContext().getAttribute("workoutRequestService");
+        this.userService = (UserService) config.getServletContext().getAttribute("userService");
     }
 
     @Override
@@ -42,6 +45,7 @@ public class RequestsPageServlet extends HttpServlet {
                     .collect(Collectors.toList());
 
             req.setAttribute("userId", userId);
+            req.setAttribute("user", userService.findUserById(userId));
             req.setAttribute("respondedRequests", respondedRequests);
             req.setAttribute("userRequests", myRequests);
 

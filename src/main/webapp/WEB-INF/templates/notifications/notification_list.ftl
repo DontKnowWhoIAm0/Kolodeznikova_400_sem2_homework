@@ -1,4 +1,4 @@
-<#assign pageCss=["css/fragments/back_button.css"]>
+<#assign pageCss=["css/fragments/back_button.css", "css/notification.css"]>
 
 <#macro content>
     <a href="javascript:history.back()"><</a>

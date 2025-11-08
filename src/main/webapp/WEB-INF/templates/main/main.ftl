@@ -6,11 +6,14 @@
 "css/request_list.css",
 "css/main.css",
 "css/fragments/delete_request_confirmation.css",
-"css/fragments/overlay.css"]>
+"css/fragments/overlay.css",
+"css/workout_list.css",
+"css/profile_page.css"]>
 
 <#include "/WEB-INF/templates/main/request_list.ftl">
 <#include "/WEB-INF/templates/main/user_request_lists.ftl">
 <#include "/WEB-INF/templates/main/workout_list.ftl">
+<#include "/WEB-INF/templates/profile/profile_page.ftl">
 
 <#macro content>
 
@@ -26,8 +29,10 @@
             <@my_request_list />
         <#elseif title == "Отклики на запрос">
             <@respondent_list />
-        <#else>
+        <#elseif title == "Тренировки">
             <@workout_list />
+        <#else>
+            <@profile />
         </#if>
     </div>
 
