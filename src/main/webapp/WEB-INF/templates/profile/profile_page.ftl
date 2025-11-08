@@ -11,7 +11,13 @@
             <div class="user_data">
                 <h2 class="nickname">${user.nickname}</h2>
                 <p class="fio">${user.name} ${user.lastname}</p>
-                <p class="gender">${user.gender?if_exists}</p>
+                <p class="gender">
+                    <#if user.gender == "MALE">
+                        Мужской
+                    <#else>
+                        Женский
+                    </#if>
+                </p>
             </div>
 
             <#if user.id==userId>

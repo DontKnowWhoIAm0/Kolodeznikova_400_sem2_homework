@@ -16,7 +16,6 @@
             </div>
             <div class="userinfo">
                 <div class="nickname">${user.nickname}</div>
-                <div class="role">Статус/роль</div>
             </div>
         </a>
     </div>

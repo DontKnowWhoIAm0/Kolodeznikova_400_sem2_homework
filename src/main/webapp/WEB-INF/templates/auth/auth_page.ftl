@@ -23,4 +23,5 @@
         window.contextPath = "${contextPath}";
     </script>
     <script src="${contextPath}/js/checkUniqueness.js"></script>
+    <script src="${contextPath}/js/checkPasswordLength.js"></script>
 </#if>

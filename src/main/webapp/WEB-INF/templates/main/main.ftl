@@ -19,7 +19,6 @@
 
     <#include "/WEB-INF/templates/fragments/header.ftl">
     <#include "/WEB-INF/templates/fragments/sidebar.ftl">
-    <#include "/WEB-INF/templates/fragments/notifications.ftl">
     <#include "/WEB-INF/templates/fragments/delete_request_confirmation.ftl">
 
     <div class="auth_container">

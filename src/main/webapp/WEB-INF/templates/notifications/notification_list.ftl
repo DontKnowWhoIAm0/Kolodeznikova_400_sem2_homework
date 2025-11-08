@@ -5,7 +5,7 @@
 
     <div class="notification_list">
         <#if notifications?has_content>
-            <#list notifications as notification>
+            <#list notifications?reverse as notification>
                 <#include "notification_item.ftl">
             </#list>
         <#else>

@@ -81,7 +81,7 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
     @Override
     public void deleteRespondentFromRequest(WorkoutRequest workoutRequest, int respondentId, boolean flag) throws SQLException {
         workoutRequestDao.deleteRespondentFromRequest(workoutRequest, respondentId);
-        String nickname = userService.findUserById(workoutRequest.getCreatorId()).getNickname();
+        String nickname = userService.findUserById(respondentId).getNickname();
         String notificationText = "";
         if (flag) {
             notificationText = NotificationMessageBuilder.buildCancelResponseNotification(nickname, workoutRequest);
@@ -90,7 +90,7 @@ public class WorkoutRequestServiceImpl implements WorkoutRequestService {
         }
         List<Integer> recipientIds = new ArrayList<>();
         recipientIds.add(respondentId);
-        notificationService.addNotification(respondentId, notificationText, recipientIds);
+        notificationService.addNotification(workoutRequest.getCreatorId(), notificationText, recipientIds);
     }
 
     /**

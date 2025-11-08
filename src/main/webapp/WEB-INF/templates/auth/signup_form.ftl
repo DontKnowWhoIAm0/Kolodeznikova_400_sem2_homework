@@ -10,7 +10,9 @@
         <input type="text" id="login" name="login" placeholder="Логин" required>
         <div id="login-error" class="error"></div>
 
-        <input type="password" name="password" placeholder="Пароль" required>
+        <input type="password" id="password" name="password" placeholder="Пароль" required>
+        <div id="password-error" class="error"></div>
+
         <input type="text" name="name" placeholder="Имя" required>
         <input type="text" name="lastname" placeholder="Фамилия" required>
 
