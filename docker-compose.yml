@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    container_name: sportbuddy-db
+    environment:
+      POSTGRES_PASSWORD: $$Okol622
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - sportbuddy-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: sportbuddy-app
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/postgres  
+      DB_USER: postgres
+      DB_PASSWORD: $$Okol622
+      CLOUD_NAME: dhprf58b7
+      CLOUD_API_KEY: 947665791614985
+      CLOUD_API_SECRET: Htr7Q7jorRClW0b8ajYjI437cvo
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - sportbuddy-network
+
+volumes:
+  postgres_data:
+
+networks:
+  sportbuddy-network:
+    driver: bridge
