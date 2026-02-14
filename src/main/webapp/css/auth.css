@@ -1,0 +1,78 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth_container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    width: 400px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+input, select {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #00c77b;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover:enabled {
+    background-color: #00a86b;
+}
+
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+#signup_button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+#signup_button:disabled:hover {
+    background-color: #ccc;
+}
+
+.auth_container .login_link {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.auth_container .login_link a {
+    text-decoration: none;
+    color: #00c77b;
+    font-weight: bold;
+    padding: 0;
+}
+
+.auth_container .login_link a:hover {
+    color: #00a86b;
+}
+
+.auth_container .login_link p {
+    margin-bottom: 0;
+}

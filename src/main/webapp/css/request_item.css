@@ -1,0 +1,131 @@
+
+.request_item:first-child {
+    margin-top: 0;
+}
+
+.request_item {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #00c77b;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 20px 60px 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+    margin: 12px auto;
+}
+
+.request_item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.request_info {
+    flex: 1;
+    word-wrap: break-word;
+    min-width: 0;
+}
+.profile_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 140px;
+    flex-shrink: 0;
+
+}
+
+.profile_info img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #3f3f3f;
+    border: 3px solid #FF8C00;
+}
+
+.profile_info .nickname {
+    font-size: 18px;
+    color: #000000;
+}
+
+.sport {
+    font-size: 26px;
+    font-weight: 600;
+    color: #000;
+    margin: 0 0 8px 0;
+}
+
+.city_time {
+    font-size: 18px;
+    color: #333;
+    margin: 0 0 10px 0;
+}
+
+.date_range {
+    color: #FF8C00;
+    font-weight: 500;
+}
+
+.description {
+    font-size: 18px;
+    color: #111;
+    margin: 0;
+}
+
+.action_button {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: auto;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+
+
+}
+
+.action_button button {
+    background-color: #00c77b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    height: auto;
+    align-self: flex-start;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.action_button button:hover {
+    background-color: #00a86b;
+    transform: scale(1.08);
+}
+
+.action_button button:disabled {
+    background-color: gray;
+    color: white;
+    cursor: default;
+    pointer-events: none;
+}
+
+.action_button button:disabled:hover {
+    background-color: gray;
+}
+
+.profile_info_link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+.profile_info_link:hover {
+    cursor: pointer;
+}

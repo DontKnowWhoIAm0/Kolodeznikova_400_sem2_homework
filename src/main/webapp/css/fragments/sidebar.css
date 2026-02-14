@@ -1,0 +1,74 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100%;
+    background: #00c77b;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: right 0.3s ease;
+    z-index: 1002;
+}
+
+
+.sidebar.active {
+    right: 0;
+}
+
+.menu a {
+    display: block;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: opacity 0.2s ease;
+}
+
+.menu a:hover {
+    opacity: 0.7;
+}
+
+
+.profile .profile_link {
+    display: flex;
+    align-items: center;
+}
+
+
+.profile_link .avatar {
+    width: 55px;
+    height: 55px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 3px solid #FF8C00;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.profile_link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.profile_link .userinfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile_link .nickname {
+    font-size: 17px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.profile_link .role {
+    font-size: 14px;
+    color: #e8ffe7;
+}

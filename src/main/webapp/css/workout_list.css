@@ -1,0 +1,132 @@
+.workout_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.workout_item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #00c77b;
+    border-radius: 12px;
+    background-color: #ffffff;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    min-height: 160px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    gap: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+
+.workout_item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.workout_info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    word-wrap: break-word;
+}
+
+.workout_info .sport {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 5px 0;
+}
+
+.workout_info .city {
+    font-size: 18px;
+    color: #333333;
+    margin: 0;
+}
+
+.workout_info .participants {
+    font-size: 16px;
+    color: #555555;
+    margin: 0;
+}
+
+.status_block {
+    position: absolute;
+    bottom: 12px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.status_text {
+    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 500;
+
+}
+
+.status_text.pending {
+    background-color: #fff7e6;
+    color: #FF8C00;
+    border: 1px solid #FF8C00;
+}
+
+.status_text.completed {
+    background-color: #f0fdf4;
+    color: #00c77b;
+    border: 1px solid #00c77b;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.buttons button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.buttons .cancel_button {
+    background-color: #bbb;
+    color: #fff;
+}
+
+.buttons .cancel_button:hover {
+    background-color: #999;
+    transform: scale(1.05);
+}
+
+.buttons .confirm_button {
+    background-color: #00c77b;
+    color: #fff;
+}
+
+.buttons .confirm_button:hover {
+    background-color: #00a86b;
+    transform: scale(1.05);
+}
+
+.status_text.canceled {
+    background-color: #fff4e6;
+    color: #FF8C00;
+    border: 1px solid #FF8C00;
+}
+
+.status_text.pending {
+    background-color: #f5f5f5;
+    color: #888888;
+    border: 1px solid #cccccc;
+}

@@ -1,0 +1,3 @@
+CREATE SCHEMA IF NOT EXISTS sb_db;
+
+GRANT ALL ON SCHEMA sb_db TO postgres;

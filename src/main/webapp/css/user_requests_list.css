@@ -1,0 +1,29 @@
+.requests_page {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.responded_requests, .my_requests {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    gap: 15px;
+    padding: 0 10px;
+    align-items: center;
+}
+
+
+.responded_requests h2,
+.my_requests h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+
+    color: #FF8C00;
+    border-bottom: 2px solid #FF8C00;
+    padding-bottom: 5px;
+    letter-spacing: 0.5px;
+}

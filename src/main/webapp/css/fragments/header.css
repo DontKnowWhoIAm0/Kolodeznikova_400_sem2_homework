@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 20px;
+    background: none;
+    margin-bottom: 0;
+}
+
+.header button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    font-size: 32px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease, transform 0.12s ease;
+}
+
+.header button:hover {
+    background: rgba(0, 0, 0, 0.07);
+    transform: scale(1.07);
+}
