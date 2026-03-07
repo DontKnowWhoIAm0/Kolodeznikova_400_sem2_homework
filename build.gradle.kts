@@ -13,6 +13,7 @@ val hibernateVersion: String by project
 val postgresVersion: String by project
 val freemarkerVersion: String by project
 val hikariVersion: String by project
+val springDataVersion: String by project
 
 repositories {
     mavenCentral()
@@ -31,6 +32,8 @@ dependencies {
     implementation("com.zaxxer:HikariCP:$hikariVersion")
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+
+    implementation("org.springframework.data:spring-data-jpa:$springDataVersion")
 }
 
 tasks.test {
