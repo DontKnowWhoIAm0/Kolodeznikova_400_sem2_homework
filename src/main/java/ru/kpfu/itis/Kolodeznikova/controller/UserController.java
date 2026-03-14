@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/create")
     public User createUser(@RequestParam(name = "firstName") String firstName, @RequestParam(name = "secondName") String secondName) {
         User user = new User();
-        user.setFirstName(firstName);
+        user.setUsername(firstName);
         user.setSecondName(secondName);
         return userService.createUser(user);
     }

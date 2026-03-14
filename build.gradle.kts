@@ -8,6 +8,7 @@ group = "org.example"
 version = "1.0-SNAPSHOT"
 
 val springVersion: String by project
+val springSecurityVersion: String by project
 val jakartaVersion: String by project
 val hibernateVersion: String by project
 val postgresVersion: String by project
@@ -34,6 +35,10 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
 
     implementation("org.springframework.data:spring-data-jpa:$springDataVersion")
+    implementation("org.springframework.security:spring-security-core:$springSecurityVersion")
+    implementation("org.springframework.security:spring-security-web:$springSecurityVersion")
+    implementation("org.springframework.security:spring-security-config:$springSecurityVersion")
+    implementation("org.springframework.security:spring-security-taglibs:$springSecurityVersion")
 }
 
 tasks.test {
