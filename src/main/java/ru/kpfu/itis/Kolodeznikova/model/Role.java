@@ -1,6 +1,7 @@
 package ru.kpfu.itis.Kolodeznikova.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Id;
 
 import java.util.List;
 

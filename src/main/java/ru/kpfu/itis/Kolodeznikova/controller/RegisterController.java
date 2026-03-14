@@ -23,7 +23,6 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user) {
-        System.out.println(user.getPassword() + " " + user.getPassword());
         userService.register(user);
         return "redirect:/hello";
     }
