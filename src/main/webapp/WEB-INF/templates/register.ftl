@@ -6,7 +6,7 @@
 
 <h2>Registration</h2>
 
-<form method="post" action="/Gradle___org_example___Kolodeznikova_11_400_sem2_1_0_SNAPSHOT_war__exploded_/register">
+<form method="post" action="register">
 
     <div>
         Username:

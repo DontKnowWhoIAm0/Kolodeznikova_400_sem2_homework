@@ -73,24 +73,6 @@ public class PersistenceConfig implements EnvironmentAware {
         return jpaTransactionManager;
     }
 
-//    @Bean
-//    public LocalSessionFactoryBean localSessionFactoryBean() {
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//        sessionFactory.setDataSource(dataSource());
-//        sessionFactory.setPackagesToScan("ru.kpfu.itis.Kolodeznikova.model");
-//        Properties hibernateProperties = new Properties();
-//        hibernateProperties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-//        sessionFactory.setHibernateProperties(hibernateProperties);
-//        return sessionFactory;
-//    }
-//
-//    @Bean
-//    public PlatformTransactionManager hibernateTransactionManager() {
-//        HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
-//        hibernateTransactionManager.setSessionFactory(localSessionFactoryBean().getObject());
-//        return hibernateTransactionManager;
-//    }
-
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();

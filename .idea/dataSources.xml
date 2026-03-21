@@ -13,7 +13,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="oris2_db@localhost" uuid="847968fd-12b0-45e7-9b56-a301d63740cd">
+    <data-source source="LOCAL" name="oris2_db@localhost [2]" uuid="4aa28191-b5d0-479f-990a-88949dd428fc">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
