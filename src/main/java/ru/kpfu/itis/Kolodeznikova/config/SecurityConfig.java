@@ -35,12 +35,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                        .authorizeHttpRequests(authorizationRequests -> authorizationRequests
-                        .requestMatchers("/", "/register", "/register/**").permitAll()
-                        .requestMatchers("/hello").hasRole("USER")
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                .authorizeHttpRequests(authorizationRequests -> authorizationRequests
+                        .requestMatchers("/", "/register", "/register/**", "/notes/public").permitAll()
+                        .requestMatchers("/hello", "/notes/**").hasRole("USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/notes", true)
+                        .permitAll())
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }

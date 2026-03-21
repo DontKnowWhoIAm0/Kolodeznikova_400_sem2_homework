@@ -1,14 +1,14 @@
 package ru.kpfu.itis.Kolodeznikova.dto;
 
 public class UserDto {
-    private String firstName;
+    private String username;
     private String secondName;
 
-    public UserDto(String firstName, String secondName) {
-        this.firstName = firstName;
+    public UserDto(String username, String secondName) {
+        this.username = username;
         this.secondName = secondName;
     }
 
-    public String getFirstName() { return firstName; }
+    public String getUsername() { return username; }
     public String getSecondName() { return secondName; }
 }
