@@ -1,4 +1,4 @@
-package ru.kpfu.itis.Kolodeznikova.service;
+package ru.kpfu.itis.Kolodeznikova.service.impl;
 
 import org.springframework.stereotype.Service;
 

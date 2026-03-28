@@ -1,23 +1,23 @@
 package ru.kpfu.itis.Kolodeznikova.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.kpfu.itis.Kolodeznikova.model.User;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username);
 
-    User save(User user);
-    User saveAndFlush(User user);
-    Optional<User> findById(Long id);
+    @Query(value = "select u from User u where u.username = :username")
+    Optional<User> getByUsername(String username);
 
-    @Transactional(readOnly = true)
-    Optional<User> findByUsername(String firstName);
+    @Query(value = "select * from users u where u.username = ?1", nativeQuery = true)
+    Optional<User> getByUsernameNative(String username);
 
-    void deleteById(Long id);
-    List<User> findAll();
+    Optional<User> findByVerificationCode(String code);
+
+    Optional<User> findByEmail(String email);
 }

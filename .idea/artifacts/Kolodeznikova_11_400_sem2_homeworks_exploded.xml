@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Kolodeznikova_11-400_sem2_homeworks_exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Kolodeznikova_11_400_sem2_homeworks_exploded</output-path>
+    <root id="root" />
+  </artifact>
+</component>

@@ -1,4 +1,4 @@
-package ru.kpfu.itis.Kolodeznikova.service;
+package ru.kpfu.itis.Kolodeznikova.service.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-    public User user;
+    private User user;
 
     public CustomUserDetails(User user) {
         this.user = user;
@@ -31,5 +31,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return user.getUsername();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return user.isVerified();
     }
 }

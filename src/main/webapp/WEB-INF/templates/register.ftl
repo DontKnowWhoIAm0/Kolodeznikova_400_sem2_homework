@@ -1,30 +1,22 @@
 <html>
 <head>
-    <title>Register</title>
+    <title>Регистрация</title>
 </head>
 <body>
 
-<h2>Registration</h2>
+<h2>Регистрация</h2>
 
-<form method="post" action="register">
-
-    <div>
-        Username:
-        <input type="text" name="username"/>
+<#if errorMessage??>
+    <div style="color: red;">
+        ${errorMessage}
     </div>
+</#if>
 
-    <div>
-        Second name:
-        <input type="text" name="secondName"/>
-    </div>
-
-    <div>
-        Password:
-        <input type="password" name="password"/>
-    </div>
-
+<form action="/users" method="post">
+    <input type="text" name="username" placeholder="Username" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
     <button type="submit">Register</button>
-
 </form>
 
 </body>

@@ -1,4 +1,4 @@
-package ru.kpfu.itis.Kolodeznikova.service;
+package ru.kpfu.itis.Kolodeznikova.service.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,5 +24,4 @@ public class CustomUserDetailsService implements UserDetailsService {
         return user.map(CustomUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
-
 }
