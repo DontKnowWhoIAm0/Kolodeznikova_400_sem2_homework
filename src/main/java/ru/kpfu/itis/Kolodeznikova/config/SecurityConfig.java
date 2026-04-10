@@ -18,7 +18,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizationRequests -> authorizationRequests
                         .requestMatchers("/index", "/login", "/register", "/success_sign_up").anonymous()
-                        .requestMatchers("/verification").permitAll()
+                        .requestMatchers("/verification", "/notes/public").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").authenticated()
                         .requestMatchers("/hello").hasRole("USER")
@@ -27,7 +27,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/hello")
+                        .defaultSuccessUrl("/notes")
                         .permitAll()
                 )
                 .logout(logout -> logout.permitAll());;

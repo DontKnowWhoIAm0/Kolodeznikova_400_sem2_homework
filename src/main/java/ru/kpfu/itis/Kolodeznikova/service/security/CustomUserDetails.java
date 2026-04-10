@@ -37,4 +37,8 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.isVerified();
     }
+
+    public User getUser() {
+        return user;
+    }
 }
