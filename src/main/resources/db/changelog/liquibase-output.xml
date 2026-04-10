@@ -1,0 +1,154 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Sonya (generated)" id="1775854313616-1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" startWith="9" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="login" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(512)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nickname" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="way_of_communication" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_value" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="profile_image" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-2">
+        <createTable tableName="workouts">
+            <column autoIncrement="true" name="id" startWith="12" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="workouts_pkey"/>
+            </column>
+            <column name="creator_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="participant_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sport" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="completed_date" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-3">
+        <createTable tableName="workout_requests">
+            <column autoIncrement="true" name="id" startWith="32" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="workout_requests_pkey"/>
+            </column>
+            <column name="creator_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sport" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_time_relevant" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time" type="time(6) WITHOUT TIME ZONE"/>
+            <column name="end_time" type="time(6) WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-4">
+        <createTable tableName="notifications">
+            <column autoIncrement="true" name="id" startWith="87" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="notifications_pkey"/>
+            </column>
+            <column name="sender_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="created_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-5">
+        <addUniqueConstraint columnNames="login" constraintName="users_login_key" tableName="users"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-6">
+        <addUniqueConstraint columnNames="nickname" constraintName="users_nickname_key" tableName="users"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-7">
+        <createTable tableName="recipients">
+            <column name="notification_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="recipients_pkey"/>
+            </column>
+            <column name="recipient_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="recipients_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-8">
+        <createTable tableName="workout_request_respondents">
+            <column name="request_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="workout_request_respondents_pkey"/>
+            </column>
+            <column name="respondent_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="workout_request_respondents_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-9">
+        <addForeignKeyConstraint baseColumnNames="sender_id" baseTableName="notifications" constraintName="notifications_sender_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-10">
+        <addForeignKeyConstraint baseColumnNames="notification_id" baseTableName="recipients" constraintName="recipients_notification_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="notifications" validate="true"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-11">
+        <addForeignKeyConstraint baseColumnNames="recipient_id" baseTableName="recipients" constraintName="recipients_recipient_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-12">
+        <addForeignKeyConstraint baseColumnNames="request_id" baseTableName="workout_request_respondents" constraintName="workout_request_respondents_request_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="workout_requests" validate="true"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-13">
+        <addForeignKeyConstraint baseColumnNames="respondent_id" baseTableName="workout_request_respondents" constraintName="workout_request_respondents_respondent_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-14">
+        <addForeignKeyConstraint baseColumnNames="creator_id" baseTableName="workout_requests" constraintName="workout_requests_creator_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-15">
+        <addForeignKeyConstraint baseColumnNames="creator_id" baseTableName="workouts" constraintName="workouts_creator_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Sonya (generated)" id="1775854313616-16">
+        <addForeignKeyConstraint baseColumnNames="participant_id" baseTableName="workouts" constraintName="workouts_participant_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
