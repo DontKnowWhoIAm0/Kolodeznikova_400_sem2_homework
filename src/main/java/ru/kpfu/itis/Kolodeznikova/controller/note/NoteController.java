@@ -51,7 +51,7 @@ public class NoteController {
     public String editNoteForm(@PathVariable("id") Long id, @AuthenticationPrincipal User user, Model model) {
         Note note = noteService.getNoteById(id);
         User currentUser = getUser();
-        if (!note.getAuthor().getId().equals(currentUser.getId())) {
+        if (note.getAuthor() == null || currentUser == null || !note.getAuthor().getId().equals(currentUser.getId())) {
             return "redirect:/notes";
         }
         model.addAttribute("note", note);
