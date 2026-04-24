@@ -1,0 +1,42 @@
+package ru.kpfu.itis.Kolodeznikova.aop.logs;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
+
+
+@Aspect
+@Component
+public class LoggingAspect {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(LoggingAspect.class);
+
+    @Pointcut("execution(* ru.kpfu.itis.Kolodeznikova..*.*(..)) && !within(ru.kpfu.itis.Kolodeznikova.dto..*) && !within(ru.kpfu.itis.Kolodeznikova.config..*)")
+    public void logExecution() {
+    }
+
+    @Pointcut("@annotation(ru.kpfu.itis.Kolodeznikova.aop.logs.Loggable)")
+    public void logAnnotated() {}
+
+    @Around("logAnnotated()")
+    public Object log(ProceedingJoinPoint joinPoint) {
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        String className = signature.getDeclaringType().getSimpleName();
+        String methodName = signature.getName();
+        LOGGER.info("Start execution {}.{}", className, methodName);
+
+        Object result;
+        try {
+            result = joinPoint.proceed();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
+        LOGGER.info("Finish execution {}.{}", className, methodName);
+        return result;
+    }
+}
