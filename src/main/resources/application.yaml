@@ -10,11 +10,12 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
 
   liquibase:
     enabled: false
+    сhange-log: classpath:db/changelog/db.changelog-master.xml
 
   freemarker:
     enabled: true
